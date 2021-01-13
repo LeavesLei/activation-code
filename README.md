@@ -1,5 +1,5 @@
 ## Neural networks behave as hash encoders: An empirical study
-This repository contains the code for paper "[Neural networks behave as hash encoders: An empirical study](https://openreview.net/pdf?id=8nXkyH2_s6)" (Under review)
+This repository contains the code for paper "[Neural networks behave as hash encoders: An empirical study](https://openreview.net/pdf?id=8nXkyH2_s6)"
 
 ### Citation
 ```
