@@ -1,19 +1,7 @@
-## Neural networks behave as hash encoders: An empirical study
-This repository contains the code for paper "[Neural networks behave as hash encoders: An empirical study](https://openreview.net/pdf?id=8nXkyH2_s6)"
+# Neural networks behave as hash encoders: An empirical study
+This repository contains the code for the paper "[Neural networks behave as hash encoders: An empirical study](http://arxiv.org/abs/2101.05490)" by Fengxiang He, Shiye Lei, Jianmin Ji, and Dacheng Tao.
 
-### Citation
-```
-@misc{he2021neural,
-      title={Neural networks behave as hash encoders: An empirical study}, 
-      author={Fengxiang He and Shiye Lei and Jianmin Ji and Dacheng Tao},
-      year={2021},
-      eprint={2101.05490},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
-}
-```
-
-### Experimental results
+## Experimental results
 - Model capacity
 ![model_capacity](figure/model_compacity.png)
 
@@ -23,15 +11,15 @@ This repository contains the code for paper "[Neural networks behave as hash enc
 - Sample size
 ![sample_size](figure/sample_size.png)
 
-### Usage
-#### Dependencies
+## Instructions
+### Dependencies
 - Python3.6
 - Tensorflow1.9
 - Keras2.2
 - MNIST dataset
 - CIFAR-10 dataset
 
-#### Train
+### Training
 ##### 1. Model capacity
 - For MNIST: `python run_layer_width_train_mlp.py --dataset mnist --depth 1 --begin_repeat 1 --repeat 10`
 - For CIFAR-10: `python run_layer_width_train_mlp.py --dataset cifar10 --depth 5 --begin_repeat 1 --repeat 10`
@@ -44,7 +32,7 @@ This repository contains the code for paper "[Neural networks behave as hash enc
 - For MNIST: `python run_training_time_train_mlp.py --dataset mnist --depth 1 --begin_repeat 1 --repeat 10`
 - For CIFAR-10: `python run_training_time_train_mlp.py --dataset cifar10 --depth 5 --begin_repeat 1 --repeat 10`
 
-#### Compute and evaluate encoding properties
+### Compute and evaluate encoding properties
 ##### 1. Model capacity
 - For MNIST: `python run_layer_width_encoding_properties.py --dataset mnist --depth 1 --begin_repeat 1 --repeat 10`
 - For CIFAR-10: `python run_layer_width_encoding_properties.py --dataset cifar10 --depth 5 --begin_repeat 1 --repeat 10`
@@ -57,8 +45,29 @@ This repository contains the code for paper "[Neural networks behave as hash enc
 - For MNIST: `python run_training_time_encoding_properties.py --dataset mnist --depth 1 --begin_repeat 1 --repeat 10`
 - For CIFAR-10: `python run_training_time_encoding_properties.py --dataset cifar10 --depth 5 --begin_repeat 1 --repeat 10`
 
-### Well-trained model
+## Well-trained model
 
-we also provide several well-trained models in our paper. If you need them, you can sent an e-mail to me: leishiye@gmail.com
+For the well-trained models in our paper, please kindly contact Shiye Lei at [leishiye@gmail.com](mailto:leishiye@gmail.com).
 
+## Citation
+```
+@article{he2021neural,
+  title={Neural networks behave as hash encoders: An empirical study},
+  author={He, Fengxiang and Lei, Shiye and Ji, Jianmin and Tao, Dacheng},
+  journal={arXiv preprint arXiv:2101.05490},
+  year={2020}
+}
+```
 
+## Contact
+
+For any issue, please kindly contact
+
+Fengxiang He: [fengxiang.f.he@gmail.com](mailto:fengxiang.f.he@gmail.com)  
+Shiye Lei: [leishiye@gmail.com](mailto:leishiye@gmail.com)  
+Jianmin Ji: [jianmin@ustc.edu.cn](mailto:jianmin@ustc.edu.cn)  
+Dacheng Tao: [dacheng.tao@sydney.edu.au](mailto:dacheng.tao@sydney.edu.au)
+
+--
+
+Last update: Fri 15 Jan 2021
