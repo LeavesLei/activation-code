@@ -3,14 +3,13 @@ This repository contains the code for paper "[Neural networks behave as hash enc
 
 ### Citation
 ```
-@inproceedings{
-anonymous2021neural,
-title={Neural networks behave as hash encoders: An empirical study},
-author={Anonymous},
-booktitle={Submitted to International Conference on Learning Representations},
-year={2021},
-url={https://openreview.net/forum?id=8nXkyH2_s6},
-note={under review}
+@misc{he2021neural,
+      title={Neural networks behave as hash encoders: An empirical study}, 
+      author={Fengxiang He and Shiye Lei and Jianmin Ji and Dacheng Tao},
+      year={2021},
+      eprint={2101.05490},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
 
