@@ -2,13 +2,13 @@
 This repository contains the code for the paper "[Neural networks behave as hash encoders: An empirical study](http://arxiv.org/abs/2101.05490)" by Fengxiang He, Shiye Lei, Jianmin Ji, and Dacheng Tao.
 
 ## Experimental results
-- Model capacity
+- **Model capacity**
 ![model_capacity](figure/model_compacity.png)
 
-- Training time
+- **Training time**
 ![training_time](figure/training_time.png)
 
-- Sample size
+- **Sample size**
 ![sample_size](figure/sample_size.png)
 
 ## Instructions
@@ -70,4 +70,4 @@ Dacheng Tao: [dacheng.tao@sydney.edu.au](mailto:dacheng.tao@sydney.edu.au)
 
 --
 
-Last update: Fri 15 Jan 2021
+Last update: Sun 24 Jan 2021
