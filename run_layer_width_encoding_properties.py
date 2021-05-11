@@ -39,31 +39,15 @@ num_classes = 10
 n_clusters = num_classes
 width_list = [3, 7, 10, 15, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60, 65, 70, 75, 80, 90, 100]
 
-# Load data
-##########################################
-# number of most-frequent words 
-nb_words = 10000
-
-(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=nb_words)
-word_index = imdb.get_word_index()
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
-decoded_review = ' '.join([reverse_word_index.get(i - 3, '?') for i in x_train[0]])
-def vectorize_sequences(sequences, dimension=nb_words):
-    results = np.zeros((len(sequences), dimension))
-    for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1.
-    return results
-
-# Convert training data to bag-of-words:
-x_train = vectorize_sequences(x_train)
-x_test = vectorize_sequences(x_test)
-
-# Convert labels from integers to floats:
-y_train = np.asarray(y_train).astype('float32')
-y_test = np.asarray(y_test).astype('float32')
-y_train = to_categorical(y_train)
-y_test = to_categorical(y_test)
-###########################################
+if dataset == "cifar10":
+    (x_train, y_train), (x_test, y_test) = load_cifar10(args.cifar10_path)
+    x_train = x_train.reshape(x_train.shape[0], -1)
+    x_test = x_test.reshape(x_test.shape[0], -1)
+    width_list = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500,
+                  550, 600, 650, 700, 750, 800, 850, 900, 950, 1000]
+# laod MNIST
+elif dataset == "mnist":
+    (x_train, y_train), (x_test, y_test) = load_mnist(path=args.mnist_path, flatten=True)
 
 num_train = int(x_train.shape[0] * 0.8)
 num_val = x_train.shape[0] - num_train

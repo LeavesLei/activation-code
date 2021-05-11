@@ -26,6 +26,32 @@ num_classes = 2
 n_clusters = num_classes
 width_list = [3, 7, 10, 20, 30, 50, 60, 80, 100, 120, 150, 170, 200]
 
+# Load data
+##########################################
+# number of most-frequent words 
+nb_words = 10000
+
+(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=nb_words)
+word_index = imdb.get_word_index()
+reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
+decoded_review = ' '.join([reverse_word_index.get(i - 3, '?') for i in x_train[0]])
+def vectorize_sequences(sequences, dimension=nb_words):
+    results = np.zeros((len(sequences), dimension))
+    for i, sequence in enumerate(sequences):
+        results[i, sequence] = 1.
+    return results
+
+# Convert training data to bag-of-words:
+x_train = vectorize_sequences(x_train)
+x_test = vectorize_sequences(x_test)
+
+# Convert labels from integers to floats:
+y_train = np.asarray(y_train).astype('float32')
+y_test = np.asarray(y_test).astype('float32')
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
+###########################################
+
 num_train = int(x_train.shape[0] * 0.8)
 num_val = x_train.shape[0] - num_train
 mask = list(range(num_train, num_train+num_val))
