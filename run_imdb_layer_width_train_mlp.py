@@ -76,7 +76,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
         # Compile networks
         opt = keras.optimizers.Adam(lr=lr)
-        mlp.compile(optimizer='adam ', loss='categorical_crossentropy', metrics=['accuracy'])
+        mlp.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         mlp.summary()
 
         # training networks
