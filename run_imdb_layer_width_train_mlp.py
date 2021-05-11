@@ -24,7 +24,7 @@ num_classes = 2
 weight_decay = 1e-6
 lr = 1e-2
 
-width_list = [10, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
+width_list = [100, 200]
 
 # Load data
 ##########################################
@@ -76,11 +76,11 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
         # Compile networks
         opt = keras.optimizers.Adam(lr=lr)
-        mlp.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+        mlp.compile(optimizer='adam ', loss='categorical_crossentropy', metrics=['accuracy'])
         mlp.summary()
 
         # training networks
-        mlp.fit(x_train, y_train, batch_size=batch_size, epochs=epoch, verbose=1)
+        mlp.fit(x_train, y_train, batch_size=batch_size, epochs=epoch, verbose=0)
 
         # compute activation code
         train_activation_codes, test_activation_codes = compute_activation_code_for_mlp(x_train, x_test, model=mlp)
