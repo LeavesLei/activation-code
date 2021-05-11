@@ -13,7 +13,6 @@ from keras.utils import to_categorical
 
 # Basic hyper-parameters
 batch_size = 512
-epoch = 20
 repeat = 5
 begin_repeat = 1
 save_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
