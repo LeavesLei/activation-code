@@ -1,9 +1,9 @@
 #-*- coding:utf-8 _*-  
 
 # encoding: utf-8
-# @File  : run_layer_width_encoding_properties.py
+# @File  : run_imdb_layer_width_encoding_properties.py
 # @Author: LeavesLei
-# @Date  : 2020/8/13
+# @Date  : 2021/5/11
 
 from load_data import *
 from activation_code_methods import *
@@ -12,7 +12,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.linear_model import LogisticRegression
 from keras.models import load_model
-import argparse
 
 
 repeat = 5
