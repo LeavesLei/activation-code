@@ -1,5 +1,7 @@
-from ..load_data import *
-from ..activation_code_methods import *
+import sys
+sys.path.append("..") 
+from load_data import *
+from activation_code_methods import *
 from keras.callbacks import LearningRateScheduler
 from keras.callbacks import EarlyStopping
 import argparse
@@ -7,7 +9,7 @@ import argparse
 from keras import backend as K
 import numpy as np
 from keras.utils import to_categorical
-from ..adult import Adult
+from adult import Adult
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
