@@ -54,6 +54,7 @@ y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 ###########################################
 
+"""
 num_train = int(x_train.shape[0] * 0.8)
 num_val = x_train.shape[0] - num_train
 mask = list(range(num_train, num_train+num_val))
@@ -63,6 +64,7 @@ y_val = y_train[mask]
 mask = list(range(num_train))
 x_train = x_train[mask]
 y_train = y_train[mask]
+"""
 
 train_label_scalar = np.argmax(y_train, axis=1).squeeze()
 val_label_scalar = np.argmax(y_val, axis=1).squeeze()
