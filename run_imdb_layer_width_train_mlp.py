@@ -27,7 +27,7 @@ weight_decay = 1e-6
 lr = 1e-2
 
 # Load data
-width_list = [3, 7, 10, 15, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60, 65, 70, 75, 80, 90, 100]
+width_list = [3, 7, 10, 20, 30, 50, 60, 80, 100, 120, 150, 170, 200]
 
 ##########################################
 # number of most-frequent words 
@@ -44,8 +44,8 @@ def vectorize_sequences(sequences, dimension=nb_words):
     return results
 
 # Convert training data to bag-of-words:
-X_train = vectorize_sequences(x_train)
-X_test = vectorize_sequences(x_test)
+x_train = vectorize_sequences(x_train)
+x_test = vectorize_sequences(x_test)
 
 # Convert labels from integers to floats:
 y_train = np.asarray(y_train).astype('float32')
