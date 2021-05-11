@@ -15,27 +15,15 @@ from keras.models import load_model
 import argparse
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', type=str, default='cifar10', help='dataset')
-parser.add_argument('--begin_repeat', type=int, default=1, help=' begin repeat num')
-parser.add_argument('--repeat', type=int, default=2, help='repeat times')
-parser.add_argument('--mnist_path', type=str, default='mnist.npz', help='MNIST path')
-parser.add_argument('--cifar10_path', type=str, default='cifar-10-batches-py', help='CIFAR10 path')
-parser.add_argument('--load_path', type=str, default='model/layer_width/model_layer_width_', help='load model path')
-parser.add_argument('--save_path', type=str, default='result_new/layer_width/result_list_layer_width_', help='save path')
-parser.add_argument('--depth', type=int, default=5, help='depth')
-args = parser.parse_args()
+repeat = 5
+begin_repeat = 1
+save_path = '/public/data1/users/leishiye/neural_code/results/layer_width/result_list_layer_width_'
+load_path = '/public/data1/users/leishiye/neural_code/models/layer_width/layer_width_'
+depth = 1
 
+dataset = 'imdb'
 
-repeat = args.repeat
-begin_repeat = args.begin_repeat
-save_path = args.save_path
-load_path = args.load_path
-depth = args.depth
-
-dataset = args.dataset
-
-num_classes = 10
+num_classes = 2
 n_clusters = num_classes
 width_list = [3, 7, 10, 15, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60, 65, 70, 75, 80, 90, 100]
 

@@ -24,9 +24,9 @@ num_classes = 2
 weight_decay = 1e-6
 lr = 1e-2
 
-# Load data
 width_list = [3, 7, 10, 20, 30, 50, 60, 80, 100, 120, 150, 170, 200]
 
+# Load data
 ##########################################
 # number of most-frequent words 
 nb_words = 10000
