@@ -117,7 +117,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         print("knn_accuracy: " + str(knn_accuracy))
 
         # compute multiclass logisticRegression
-        logistic_classifier = OneVsOneClassifier(LogisticRegression(random_state=9)).fit(train_activation_codes, train_label_scalar)
+        logistic_classifier = OneVsOneClassifier(LogisticRegression(solver='liblinear', random_state=9)).fit(train_activation_codes, train_label_scalar)
         logistic_pred_result = logistic_classifier.predict(test_activation_codes)
         smstr = np.nonzero(test_label_scalar - logistic_pred_result)
         logistic_accuracy = 1 - np.shape(smstr[0])[0] / test_label_scalar.shape[0]
