@@ -72,7 +72,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
     print('repeat: ' + str(iter + 1))
     for num_neuron in width_list:
         print('layer width: ' + str(num_neuron))
-        mlp = create_mlp(num_neuron, depth, input_shape, num_classes, weight_decay=weight_decay, bn=True)
+        mlp = create_mlp(num_neuron, depth, input_shape, num_classes, weight_decay=weight_decay, bn=False)
 
         # Compile networks
         opt = keras.optimizers.Adam(lr=lr)
