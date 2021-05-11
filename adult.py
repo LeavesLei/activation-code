@@ -1,5 +1,4 @@
 import re
-import pandas as pd
 import numpy as np
 
 from dataset import Dataset
