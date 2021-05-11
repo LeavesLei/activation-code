@@ -6,6 +6,10 @@
 from load_data import *
 from activation_code_methods import *
 from keras.callbacks import LearningRateScheduler
+from keras import backend as K
+from keras.datasets import imdb
+import numpy as np
+from keras.utils import to_categorical
 
 # Basic hyper-parameters
 batch_size = 512
