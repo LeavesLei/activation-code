@@ -73,7 +73,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         result_list = []
 
         # building model
-        mlp = create_mlp(num_neuron, depth, input_shape, num_classes, weight_decay=weight_decay, bn=True)
+        mlp = create_mlp(num_neuron, depth, input_shape, num_classes, weight_decay=weight_decay, bn=False)
 
         # Compile networks
         #opt = keras.optimizers.Adam(lr=lr)
@@ -95,5 +95,18 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             # training networks
             mlp.fit(x_train, y_train, batch_size=batch_size, epochs=training_epoch, verbose=1)
+
+            # compute activation code
+            train_activation_codes, test_activation_codes = compute_activation_code_for_mlp(x_train, x_test, model=mlp)
+
+            # compute redundancy ratio
+            test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
+                0]) / x_test.shape[0]
+            train_redundancy_ratio = (train_activation_codes.shape[0] - np.unique(train_activation_codes, axis=0).shape[
+                0]) / x_train.shape[0]
+
+            print("train redundancy ratio: " + str(train_redundancy_ratio))
+            print("test redundancy ratio: " + str(test_redundancy_ratio))
+
 
             mlp.save(save_path + str(output_epoch_list[index]) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1) + '.h5')
