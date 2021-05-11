@@ -9,7 +9,7 @@ from keras.layers import Dense, Activation, Dropout
 from keras import backend as K
 from keras.datasets import imdb
 import numpy as np
-
+from keras.utils import to_categorical
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
@@ -50,6 +50,8 @@ x_test = vectorize_sequences(x_test)
 # Convert labels from integers to floats:
 y_train = np.asarray(y_train).astype('float32')
 y_test = np.asarray(y_test).astype('float32')
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
 ###########################################
 
 
