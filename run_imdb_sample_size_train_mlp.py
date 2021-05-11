@@ -58,6 +58,7 @@ y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 ###########################################
 
+input_shape = x_train.shape[1:]
 print('dataset: ' + dataset)
 print('depth: ' + str(depth))
 
@@ -105,7 +106,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
-            
+
             mlp.save(save_path + str(sample_size) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' +
                      str(depth) + '_iter' + str(iter + 1) + '.h5')
 
