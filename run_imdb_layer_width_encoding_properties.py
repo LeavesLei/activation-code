@@ -12,7 +12,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.linear_model import LogisticRegression
 from keras.models import load_model
-
+from keras.datasets import imdb
+import numpy as np
+from keras.utils import to_categorical
 
 repeat = 5
 begin_repeat = 1
