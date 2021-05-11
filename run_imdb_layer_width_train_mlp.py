@@ -3,8 +3,6 @@ from activation_code_methods import *
 from keras.callbacks import LearningRateScheduler
 from keras.callbacks import EarlyStopping
 import argparse
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Dropout
 #from keras.utils import np_utils
 from keras import backend as K
 from keras.datasets import imdb
@@ -16,9 +14,9 @@ from keras.utils import to_categorical
 # Basic hyper-parameters
 batch_size = 512
 epoch = 20
-repeat = 1
+repeat = 5
 begin_repeat = 1
-save_path = '/public/data1/users/leishiye/neural_code/models/layer_width_'
+save_path = '/public/data1/users/leishiye/neural_code/models/layer_width/layer_width_'
 depth = 1
 dataset = 'imdb'
 
