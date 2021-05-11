@@ -28,8 +28,8 @@ dataset = 'imdb'
 num_classes = 2
 n_clusters = num_classes
 
-width_list = [40, 50, 60]
-output_epoch_list = [0, 1, 3, 6, 10, 20, 30, 40, 60, 80, 100, 120, 140, 160, 180, 200]
+width_list = [100]
+output_epoch_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 18, 20]
 
 # Load data
 ##########################################
