@@ -67,7 +67,7 @@ y_train = y_train[mask]
 """
 
 train_label_scalar = np.argmax(y_train, axis=1).squeeze()
-val_label_scalar = np.argmax(y_val, axis=1).squeeze()
+#val_label_scalar = np.argmax(y_val, axis=1).squeeze()
 test_label_scalar = np.argmax(y_test, axis=1).squeeze()
 
 input_shape = x_train.shape[1:]
