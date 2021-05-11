@@ -23,7 +23,7 @@ num_classes = 2
 weight_decay = 1e-6
 lr = 1e-2
 
-width_list = [100]
+width_list = [60, 80] #[100]
 output_epoch_list = [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 18, 20]
 
 training_epoch_list = []
