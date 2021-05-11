@@ -1,8 +1,5 @@
-# encoding: utf-8
-# @File  : run_sample_size_train_mlp.py
-# @Author: LeavesLei
-# @Date  : 2020/8/13
-
+import sys
+sys.path.append("..") 
 from load_data import *
 from activation_code_methods import *
 import numpy as np
@@ -10,51 +7,41 @@ import argparse
 from keras.callbacks import LearningRateScheduler
 from keras.callbacks import EarlyStopping
 from keras import backend as K
-from keras.datasets import imdb
+from adult import Adult
 import numpy as np
 from keras.utils import to_categorical
 
 # Basic hyper-parameters
-batch_size = 512
-epoch = 20
+batch_size = 128
+epoch = 100
 repeat = 5
 begin_repeat = 1
 save_path = '/public/data1/users/leishiye/neural_code/models/sample_size/model_sample_size_'
 depth = 1
-dataset = 'imdb'
+dataset = 'adult'
 
 num_classes = 2
 weight_decay = 1e-6
 lr = 1e-2
 
-width_list = [60, 80]#[100]
+width_list = [60, 80, 100]
 
-sample_size_list = [100, 200, 500, 1000, 2000, 5000, 10000, 15000, 20000, 25000]
+sample_size_list = [100, 200, 500, 1000, 2000, 5000, 10000, 15000, 20000]
 # Load data
 ##########################################
-# number of most-frequent words 
-nb_words = 10000
+trainset = Adult(root='/public/data1/users/leishiye/neural_code/datasets', train=True)
+x_train = trainset.x / trainset.x.max(axis=0)
+y_train = to_categorical(trainset.y)
 
-(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=nb_words)
-word_index = imdb.get_word_index()
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
-decoded_review = ' '.join([reverse_word_index.get(i - 3, '?') for i in x_train[0]])
-def vectorize_sequences(sequences, dimension=nb_words):
-    results = np.zeros((len(sequences), dimension))
-    for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1.
-    return results
+num_train = int(x_train.shape[0] * 0.7)
+num_test = x_train.shape[0] - num_train
+mask = list(range(num_train, num_train+num_test))
+x_test = x_train[mask]
+y_test = y_train[mask]
 
-# Convert training data to bag-of-words:
-x_train = vectorize_sequences(x_train)
-x_test = vectorize_sequences(x_test)
-
-# Convert labels from integers to floats:
-y_train = np.asarray(y_train).astype('float32')
-y_test = np.asarray(y_test).astype('float32')
-y_train = to_categorical(y_train)
-y_test = to_categorical(y_test)
-###########################################
+mask = list(range(num_train))
+x_train = x_train[mask]
+y_train = y_train[mask]
 
 input_shape = x_train.shape[1:]
 print('dataset: ' + dataset)

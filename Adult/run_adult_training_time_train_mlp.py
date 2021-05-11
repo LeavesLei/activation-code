@@ -1,30 +1,27 @@
-# encoding: utf-8
-# @File  : run.py
-# @Author: LeavesLei
-# @Date  : 2020/8/13
-
+import sys
+sys.path.append("..") 
 from load_data import *
 from activation_code_methods import *
 from keras.callbacks import LearningRateScheduler
 from keras import backend as K
-from keras.datasets import imdb
+from adult import Adult
 import numpy as np
 from keras.utils import to_categorical
 
 # Basic hyper-parameters
-batch_size = 512
+batch_size = 128
 repeat = 5
 begin_repeat = 1
 save_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
 depth = 1
-dataset = 'imdb'
+dataset = 'adult'
 
 num_classes = 2
 weight_decay = 1e-6
 lr = 1e-2
 
-width_list = [60, 80] #[100]
-output_epoch_list = [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 18, 20]
+width_list = [60, 80, 100]
+output_epoch_list = [1, 2, 3, 6, 10, 20, 30, 60, 100]
 
 training_epoch_list = []
 for i in range(len(output_epoch_list)):
@@ -35,30 +32,19 @@ for i in range(len(output_epoch_list)):
 
 # Load data
 ##########################################
-# number of most-frequent words 
-nb_words = 10000
+trainset = Adult(root='/public/data1/users/leishiye/neural_code/datasets', train=True)
+x_train = trainset.x / trainset.x.max(axis=0)
+y_train = to_categorical(trainset.y)
 
-(x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=nb_words)
-word_index = imdb.get_word_index()
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
-decoded_review = ' '.join([reverse_word_index.get(i - 3, '?') for i in x_train[0]])
-def vectorize_sequences(sequences, dimension=nb_words):
-    results = np.zeros((len(sequences), dimension))
-    for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1.
-    return results
+num_train = int(x_train.shape[0] * 0.7)
+num_test = x_train.shape[0] - num_train
+mask = list(range(num_train, num_train+num_test))
+x_test = x_train[mask]
+y_test = y_train[mask]
 
-# Convert training data to bag-of-words:
-x_train = vectorize_sequences(x_train)
-x_test = vectorize_sequences(x_test)
-
-# Convert labels from integers to floats:
-y_train = np.asarray(y_train).astype('float32')
-y_test = np.asarray(y_test).astype('float32')
-y_train = to_categorical(y_train)
-y_test = to_categorical(y_test)
-###########################################
-
+mask = list(range(num_train))
+x_train = x_train[mask]
+y_train = y_train[mask]
 
 input_shape = x_train.shape[1:]
 
@@ -83,14 +69,6 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
         # training according to training epoch list
         for index, training_epoch in enumerate(training_epoch_list):
-            # Training policies
-            if index == 0:
-                def lr_scheduler(epoch):
-                    return lr * (0.1 ** (epoch // 20))
-            else:
-                def lr_scheduler(epoch):
-                    return lr * (0.1 ** ((output_epoch_list[index-1] + epoch) // 20))
-            reduce_lr = LearningRateScheduler(lr_scheduler)
 
             # training networks
             mlp.fit(x_train, y_train, batch_size=batch_size, epochs=training_epoch, verbose=1)
