@@ -25,17 +25,7 @@ dataset = 'imdb'
 
 num_classes = 2
 n_clusters = num_classes
-width_list = [3, 7, 10, 15, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60, 65, 70, 75, 80, 90, 100]
-
-if dataset == "cifar10":
-    (x_train, y_train), (x_test, y_test) = load_cifar10(args.cifar10_path)
-    x_train = x_train.reshape(x_train.shape[0], -1)
-    x_test = x_test.reshape(x_test.shape[0], -1)
-    width_list = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500,
-                  550, 600, 650, 700, 750, 800, 850, 900, 950, 1000]
-# laod MNIST
-elif dataset == "mnist":
-    (x_train, y_train), (x_test, y_test) = load_mnist(path=args.mnist_path, flatten=True)
+width_list = [3, 7, 10, 20, 30, 50, 60, 80, 100, 120, 150, 170, 200]
 
 num_train = int(x_train.shape[0] * 0.8)
 num_val = x_train.shape[0] - num_train
