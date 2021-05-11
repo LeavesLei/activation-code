@@ -24,8 +24,6 @@ depth = 1
 dataset = 'imdb'
 
 num_classes = 2
-
-num_classes = 10
 weight_decay = 1e-6
 lr = 1e-2
 
