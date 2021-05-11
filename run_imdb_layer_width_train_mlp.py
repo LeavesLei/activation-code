@@ -7,35 +7,20 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
 #from keras.utils import np_utils
 from keras import backend as K
-
+from keras.datasets import imdb
 import numpy as np
-
-print('Using Keras version:', __version__, 'backend:', K.backend())
-assert(LV(__version__) >= LV("2.0.0"))
 
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-parser = argparse.ArgumentParser()
-
-parser.add_argument('--batch_size', type=int, default=64, help='batch size')
-parser.add_argument('--epoch', type=int, default=200, help='epoch')
-parser.add_argument('--dataset', type=str, default='cifar10', help='dataset')
-parser.add_argument('--begin_repeat', type=int, default=1, help=' begin repeat num')
-parser.add_argument('--repeat', type=int, default=2, help='repeat times')
-parser.add_argument('--mnist_path', type=str, default='mnist.npz', help='MNIST path')
-parser.add_argument('--cifar10_path', type=str, default='cifar-10-batches-py', help='CIFAR10 path')
-parser.add_argument('--save_path', type=str, default='model/layer_width/model_layer_width_', help='save path')
-parser.add_argument('--depth', type=int, default=5, help='depth')
-args = parser.parse_args()
 
 # Basic hyper-parameters
-batch_size = args.batch_size
-epoch = args.epoch
-repeat = args.repeat
-begin_repeat = args.begin_repeat
-save_path = args.save_path
-depth = args.depth
-dataset = args.dataset
+batch_size = 512
+epoch = 20
+repeat = 1
+begin_repeat = 1
+save_path = '/public/data1/users/leishiye/neural_code/models/layer_width_'
+depth = 1
+dataset = 'imdb'
 
 num_classes = 2
 weight_decay = 1e-6
@@ -45,8 +30,6 @@ lr = 1e-2
 width_list = [3, 7, 10, 15, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60, 65, 70, 75, 80, 90, 100]
 
 ##########################################
-from keras.datasets import imdb
-
 # number of most-frequent words 
 nb_words = 10000
 
