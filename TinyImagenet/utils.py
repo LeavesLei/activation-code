@@ -10,7 +10,7 @@ from scipy.spatial.distance import pdist
 from scipy.spatial.distance import squareform
 from sklearn.metrics.cluster import contingency_matrix
 from scipy.optimize import linear_sum_assignment
-from scipy.stats import entropy
+from PIL import Image
 import warnings
 warnings.filterwarnings("ignore")
 
