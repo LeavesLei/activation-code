@@ -20,8 +20,7 @@ depth = 1
 dataset = 'tinyimagenet'
 input_channel = 3
 num_classes = 200
-weight_decay = 1e-6
-lr = 1e-2
+lr = 0.001
 
 width_list = [64, 128]
 output_epoch_list = [1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
