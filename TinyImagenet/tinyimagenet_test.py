@@ -1,4 +1,4 @@
-from TinyImagenet.utils import compute_conv_code_list, test
+from utils import compute_conv_code_list, test
 import sys
 sys.path.append("..") 
 
