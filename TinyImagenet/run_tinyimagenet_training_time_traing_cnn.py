@@ -8,8 +8,6 @@ import torch.utils.data as data
 import torchvision.transforms as transforms
 from vgg import VGG16
 from utils import *
-from load_data import *
-from activation_code_methods import *
 import numpy as np
 
 
