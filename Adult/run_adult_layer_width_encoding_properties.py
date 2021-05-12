@@ -1,5 +1,5 @@
 import sys
-sys.path.append("..") 
+sys.path.append("..")
 from load_data import *
 from activation_code_methods import *
 from sklearn.cluster import KMeans
