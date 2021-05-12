@@ -13,7 +13,20 @@ from keras.models import load_model
 from adult import Adult
 import numpy as np
 from keras.utils import to_categorical
+from sklearn.metrics.cluster import contingency_matrix
+from scipy.optimize import linear_sum_assignment
 
+def compute_clustering_accuracy(cluster_result, label, n_cluster=2):
+    partition_matrix = contingency_matrix(label, cluster_result)
+    _, label_mapping = linear_sum_assignment(-partition_matrix)
+    for i in range(n_cluster):
+        cluster_result[cluster_result == label_mapping[i]] = n_cluster + i
+    cluster_result = cluster_result - n_cluster
+    smstr = np.nonzero(label - cluster_result)
+    clustering_accuracy = 1 - np.shape(smstr[0])[0] / label.shape[0]
+    match_index = np.array([1 if label[i]==cluster_result[i] else 0 for i in range(label.shape[0])])
+    return clustering_accuracy
+    
 repeat = 3
 begin_repeat = 3
 save_path = '/public/data1/users/leishiye/neural_code/results/sample_size/result_list_sample_size_'
