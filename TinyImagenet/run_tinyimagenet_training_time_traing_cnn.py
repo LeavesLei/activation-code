@@ -46,6 +46,7 @@ data_transforms = {
     ])
 }
 
+data_dir = data_dir = '/public/data1/users/leishiye/datasets'
 image_datasets = dict()
 image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
 image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
