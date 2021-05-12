@@ -13,24 +13,28 @@ num_classes=200
 input_channel = 3
 layer_width = 64
 batch_size = 128
-data_dir = '/public/data1/users/leishiye/datasets/tiny-imagenet-200/'
-num_workers = {'train' : 100,'val'   : 2,'test'  : 2}
+data_dir = '/public/data1/users/leishiye/datasets'
+
+
+# data loading
 data_transforms = {
     'train': transforms.Compose([
+        #transforms.RandomHorizontalFlip(0.5),
         transforms.ToTensor(),
-    ]),
-    'val': transforms.Compose([
-        transforms.ToTensor(),
+        transforms.Normalize([0.4802, 0.4481, 0.3975], [0.2302, 0.2265, 0.2262]),
     ]),
     'test': transforms.Compose([
         transforms.ToTensor(),
+        transforms.Normalize([0.4802, 0.4481, 0.3975], [0.2302, 0.2265, 0.2262]),
     ])
 }
-image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x]) 
-                  for x in ['train', 'test']}
-dataloaders = {x: data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=num_workers[x])
-                  for x in ['train', 'test']}
+
+image_datasets = dict()
+image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
+image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=128, shuffle=True, num_workers=4) for x in ['train', 'test']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
+
 print("dataset size: ")
 print(dataset_sizes)
 
@@ -43,7 +47,7 @@ use_cuda = torch.cuda.is_available()
 net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=layer_width).to(device)
 
 # Hyper-parameters
-lr = 0.01
+lr = 0.001
 start_epoch = 1
 num_epochs = 20
 elapsed_time = 0

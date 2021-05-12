@@ -201,3 +201,32 @@ def compute_clustering_accuracy(cluster_result, label, n_cluster=10):
     
     #return clustering_accuracy, single_class_clustering_accuracy, match_index, partition_matrix
     return clustering_accuracy, match_index, partition_matrix
+
+
+class Dataset():
+    def __init__(self, x, y, transform=None):
+        assert(len(x) == len(y))
+        self.x = x
+        self.y = y
+        self.transform = transform
+
+    def __getitem__(self, idx):
+        x, y = self.x[idx], self.y[idx]
+        if self.transform is not None:
+            x = self.transform( Image.fromarray(x) )
+            # x = self.transform(x)
+        return x, y
+
+    def __len__(self):
+        return len(self.x)
+
+
+def TinyImageNet(root='./path', train=True, transform=None):
+    if train:
+        path = '{}/tiny-imagenet/train.npz'.format(root)
+    else:
+        path = '{}/tiny-imagenet/test.npz'.format(root)
+
+    data = np.load(path)
+
+    return Dataset(x=data['images'], y=data['labels'], transform=transform)
