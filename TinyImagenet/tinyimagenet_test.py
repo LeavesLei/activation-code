@@ -69,15 +69,15 @@ train_activation_codes, _ = compute_conv_code_list(trainloader, net)
 test_activation_codes, _ = compute_conv_code_list(testloader, net)
 
 # compute redundancy ratio
-test_redundancy_ratio = (test_activation_codes[0].shape[0] - np.unique(test_activation_codes[0], axis=0).shape[0]) / test_activation_codes.shape[0]
-train_redundancy_ratio = (train_activation_codes[0].shape[0] - np.unique(train_activation_codes[0], axis=0).shape[0]) / train_activation_codes.shape[0]
+test_redundancy_ratio = (test_activation_codes[0].shape[0] - np.unique(test_activation_codes[0], axis=0).shape[0]) / dataset_sizes['test']
+train_redundancy_ratio = (train_activation_codes[0].shape[0] - np.unique(train_activation_codes[0], axis=0).shape[0]) / dataset_sizes['train']
 
 print("train redundancy ratio: " + str(train_redundancy_ratio))
 print("test redundancy ratio: " + str(test_redundancy_ratio))
 
 # compute redundancy ratio
-test_redundancy_ratio = (test_activation_codes[1].shape[0] - np.unique(test_activation_codes[1], axis=0).shape[0]) / test_activation_codes.shape[0]
-train_redundancy_ratio = (train_activation_codes[1].shape[0] - np.unique(train_activation_codes[1], axis=0).shape[0]) / train_activation_codes.shape[0]
+test_redundancy_ratio = (test_activation_codes[1].shape[0] - np.unique(test_activation_codes[1], axis=0).shape[0]) / dataset_sizes['test']
+train_redundancy_ratio = (train_activation_codes[1].shape[0] - np.unique(train_activation_codes[1], axis=0).shape[0]) / dataset_sizes['train']
 
 print("train redundancy ratio: " + str(train_redundancy_ratio))
 print("test redundancy ratio: " + str(test_redundancy_ratio))
