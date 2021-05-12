@@ -19,7 +19,7 @@ data_dir = '/public/data1/users/leishiye/datasets'
 # data loading
 data_transforms = {
     'train': transforms.Compose([
-        #transforms.RandomHorizontalFlip(0.5),
+        transforms.RandomHorizontalFlip(0.5),
         transforms.ToTensor(),
         transforms.Normalize([0.4802, 0.4481, 0.3975], [0.2302, 0.2265, 0.2262]),
     ]),
@@ -49,7 +49,7 @@ net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=laye
 # Hyper-parameters
 lr = 0.001
 start_epoch = 1
-num_epochs = 20
+num_epochs = 40
 elapsed_time = 0
 for epoch in range(start_epoch, start_epoch + num_epochs):
 
@@ -65,8 +65,8 @@ print("Test accuracy: ")
 test_acc = test(net, testloader, epoch=1)
 
 # compute activation code
-train_activation_codes = compute_conv_code_list(trainloader, net)
-test_activation_codes = compute_conv_code_list(testloader, net)
+train_activation_codes, _ = compute_conv_code_list(trainloader, net)
+test_activation_codes, _ = compute_conv_code_list(testloader, net)
 
 # compute redundancy ratio
 test_redundancy_ratio = (test_activation_codes[0].shape[0] - np.unique(test_activation_codes[0], axis=0).shape[0]) / test_activation_codes.shape[0]
