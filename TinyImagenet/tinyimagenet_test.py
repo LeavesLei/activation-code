@@ -14,7 +14,7 @@ input_channel = 3
 layer_width = 64
 batch_size = 128
 data_dir = '/public/data1/users/leishiye/datasets/tiny-imagenet-200/'
-num_workers = {'train' : 4,'val'   : 2,'test'  : 2}
+num_workers = {'train' : 100,'val'   : 2,'test'  : 2}
 data_transforms = {
     'train': transforms.Compose([
         transforms.ToTensor(),
