@@ -14,8 +14,8 @@ from adult import Adult
 import numpy as np
 from keras.utils import to_categorical
 
-repeat = 5
-begin_repeat = 1
+repeat = 3
+begin_repeat = 3
 save_path = '/public/data1/users/leishiye/neural_code/results/sample_size/result_list_sample_size_'
 load_path = '/public/data1/users/leishiye/neural_code/models/sample_size/model_sample_size_'
 depth = 1

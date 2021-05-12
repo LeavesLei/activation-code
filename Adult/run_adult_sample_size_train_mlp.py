@@ -14,8 +14,8 @@ from keras.utils import to_categorical
 # Basic hyper-parameters
 batch_size = 128
 epoch = 100
-repeat = 5
-begin_repeat = 1
+repeat = 3
+begin_repeat = 3
 save_path = '/public/data1/users/leishiye/neural_code/models/sample_size/model_sample_size_'
 depth = 1
 dataset = 'adult'
