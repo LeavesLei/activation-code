@@ -8,6 +8,7 @@ import torch.utils.data as data
 import torchvision.transforms as transforms
 from vgg import VGG16
 from utils import *
+from PIL import Image
 
 num_classes=200
 input_channel = 3
