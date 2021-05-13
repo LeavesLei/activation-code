@@ -17,27 +17,6 @@ warnings.filterwarnings("ignore")
 criterion = nn.CrossEntropyLoss()
 use_cuda = torch.cuda.is_available()
 
-def compute_conv_code(data, net):
-    with torch.no_grad():
-        for batch_idx, (inputs, targets) in enumerate(data):
-            if use_cuda:
-                inputs, targets = inputs.cuda(), targets.cuda()
-            inputs, targets = Variable(inputs), Variable(targets)
-            aggregate_code, output = net(inputs)
-            aggregate_code_conv = torch.sum(aggregate_code>0, (2,3)).detach().cpu().numpy() # for conv layers
-            #aggregate_code_conv = (aggregate_code>0).detach().cpu().numpy() # for full layers
-            targets = targets.detach().cpu().numpy()
-            output = torch.argmax(output, axis=1).detach().cpu().numpy()
-            if batch_idx==0:
-                conv_code = aggregate_code_conv
-                label_true = targets
-
-            else:
-                conv_code = np.concatenate((conv_code, aggregate_code_conv), axis=0)
-                label_true = np.concatenate((label_true, targets))
-    return conv_code, label_true
-
-
 def compute_conv_code_list(data, net):
     with torch.no_grad():
         for batch_idx, (inputs, targets) in enumerate(data):

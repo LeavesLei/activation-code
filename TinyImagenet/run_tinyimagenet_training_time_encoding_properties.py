@@ -75,7 +75,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         for training_epoch in output_epoch_list:
             # load model
             net = torch.load(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)
-
+            if training_epoch == 0:
+                net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
             # evaluation
             train_acc = test(net, trainloader, epoch=1)
             print("train accuracy: ", train_acc)
