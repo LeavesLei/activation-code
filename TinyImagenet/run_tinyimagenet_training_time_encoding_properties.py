@@ -17,7 +17,7 @@ from vgg import VGG16
 from utils import *
 
 repeat = 5
-begin_repeat = 1
+begin_repeat = 2
 save_path = '/public/data1/users/leishiye/neural_code/results/training_time/result_list_training_process_'
 load_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
 depth = 1
@@ -28,7 +28,7 @@ num_classes = 200
 n_clusters = num_classes
 
 width_list = width_list = [64, 128]
-output_epoch_list = [1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
+output_epoch_list = [0, 1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
 
 # Load data
 data_transforms = {
@@ -95,14 +95,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
-
+            """
             # compute clustering accuracy with kmeans
-            print(train_activation_codes)
             train_cluster_result = KMeans(n_clusters=200, random_state=9).fit_predict(train_activation_codes)
-            print('train_cluster_result: ')
-            print(train_cluster_result)
-            print('train_label_scalar: ')
-            print(train_label_scalar)
             train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
 
             test_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(test_activation_codes)
@@ -132,7 +127,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             result_list.extend([None, train_acc, None, test_acc, train_redundancy_ratio,
                                 test_redundancy_ratio, train_clustering_accuracy_kmeans, test_clustering_accuracy_kmeans,
                                 knn_accuracy, logistic_accuracy])
-
+            """
+        """
         # save
         save_list(result_list,
                   save_path + dataset + '_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))
+        """
