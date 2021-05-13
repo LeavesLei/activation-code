@@ -98,6 +98,10 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             # compute clustering accuracy with kmeans
             train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
+            print('train_cluster_result: ')
+            print(train_cluster_result)
+            print('train_label_scalar: ')
+            print(train_label_scalar)
             train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
 
             test_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(test_activation_codes)
