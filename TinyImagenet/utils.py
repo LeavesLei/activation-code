@@ -187,7 +187,6 @@ def compute_clustering_accuracy(cluster_result, label, n_cluster=200):
     cluster_result = cluster_result - n_cluster
     smstr = np.nonzero(label - cluster_result)
     clustering_accuracy = 1 - np.shape(smstr[0])[0] / label.shape[0]
-    match_index = np.array([1 if label[i]==cluster_result[i] else 0 for i in range(label.shape[0])])
     return clustering_accuracy
 
 
