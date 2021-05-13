@@ -114,7 +114,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
 
             # training set
-            image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
+            image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'], sample_size=sample_size)
             trainloader = torch.utils.data.DataLoader(image_datasets['train'], batch_size=128, shuffle=True, num_workers=4)
             for epoch in range(num_epochs):
                 train(net=net, trainloader=trainloader, epoch=epoch, lr=lr, num_epochs=num_epochs)
