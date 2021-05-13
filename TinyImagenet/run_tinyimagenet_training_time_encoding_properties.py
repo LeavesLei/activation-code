@@ -97,7 +97,6 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("test redundancy ratio: " + str(test_redundancy_ratio))
 
             # compute clustering accuracy with kmeans
-            print("n_clusters: " + str(n_clusters))
             train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
             train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
 
