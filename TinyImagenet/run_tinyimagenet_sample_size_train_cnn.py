@@ -12,6 +12,12 @@ from utils import *
 import numpy as np
 import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--begin_repeat', type=int, default=1, help=' begin repeat num')
+args = parser.parse_args()
+
+begin_repeat = args.begin_repeat
+
 class Dataset():
     def __init__(self, x, y, transform=None):
         assert(len(x) == len(y))
@@ -50,9 +56,9 @@ def TinyImageNet(root='./path', train=True, transform=None, sample_size=100000):
 
 # Basic hyper-parameters
 batch_size = 128
-epoch = 40
-repeat = 5
-begin_repeat = 1
+num_epochs = 40
+repeat = 1
+#begin_repeat = 1
 save_path = '/public/data1/users/leishiye/neural_code/models/sample_size/model_sample_size_'
 depth = 1
 dataset = 'tinyimagenet'
@@ -109,10 +115,10 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             # training set
             image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
             trainloader = torch.utils.data.DataLoader(image_datasets['train'], batch_size=128, shuffle=True, num_workers=4)
-            # training networks
-            mlp.fit(x_sub_train_expansion, y_sub_train_expansion, batch_size=batch_size, epochs=epoch, verbose=1)
+            for epoch in range(num_epochs):
+                train(net=net, trainloader=trainloader, epoch=epoch, lr=lr, num_epochs=num_epochs)
 
-            mlp.save(save_path + str(sample_size) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' +
-                     str(depth) + '_iter' + str(iter + 1) + '.h5')
+            torch.save(net, save_path + str(sample_size) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' +
+                     str(depth) + '_iter' + str(iter + 1))
 
         
