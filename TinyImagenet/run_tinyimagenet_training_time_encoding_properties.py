@@ -88,6 +88,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             train_activation_codes = train_activation_codes[1]
             test_activation_codes = test_activation_codes[1]
+
+            print(train_activation_codes.shape)
+            print(train_activation_codes)
             
             # compute redundancy ratio
             test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
