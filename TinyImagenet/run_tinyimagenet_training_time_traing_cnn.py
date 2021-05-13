@@ -1,7 +1,4 @@
-import sys
-sys.path.append("..") 
-
-import torch, os
+import torch
 import torchvision.datasets as datasets
 import torch.utils.data as data
 import torchvision.transforms as transforms

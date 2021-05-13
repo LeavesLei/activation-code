@@ -66,6 +66,18 @@ width_list = [64, 128]
 
 sample_size_list = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]
 
+data_transforms = {
+    'train': transforms.Compose([
+        transforms.RandomHorizontalFlip(0.5),
+        transforms.ToTensor(),
+        transforms.Normalize([0.4802, 0.4481, 0.3975], [0.2302, 0.2265, 0.2262]),
+    ]),
+    'test': transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize([0.4802, 0.4481, 0.3975], [0.2302, 0.2265, 0.2262]),
+    ])
+}
+
 data_dir = '/public/data1/users/leishiye/datasets'
 image_datasets = dict()
 
