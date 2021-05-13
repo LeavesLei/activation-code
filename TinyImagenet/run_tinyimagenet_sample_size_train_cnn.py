@@ -1,5 +1,7 @@
-import sys
-sys.path.append("..") 
+# encoding: utf-8
+# @File  : run_sample_size_train_mlp.py
+# @Author: LeavesLei
+# @Date  : 2020/8/13
 
 import torch, os
 import torchvision.datasets as datasets
@@ -8,13 +10,15 @@ import torchvision.transforms as transforms
 from vgg import VGG16
 from utils import *
 import numpy as np
+import argparse
 
 
 # Basic hyper-parameters
 batch_size = 128
+epoch = 40
 repeat = 5
 begin_repeat = 1
-save_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
+save_path = '/public/data1/users/leishiye/neural_code/models/sample_size/model_sample_size_'
 depth = 1
 dataset = 'tinyimagenet'
 input_channel = 3
@@ -22,15 +26,8 @@ num_classes = 200
 lr = 0.001
 
 width_list = [64, 128]
-output_epoch_list = [1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
 
-training_epoch_list = []
-for i in range(len(output_epoch_list)):
-    if i == 0:
-        training_epoch_list.append(output_epoch_list[i] - 0)
-    else:
-        training_epoch_list.append(output_epoch_list[i] - output_epoch_list[i-1])
-
+sample_size_list = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]
 # data loading
 data_transforms = {
     'train': transforms.Compose([
@@ -57,6 +54,9 @@ print(dataset_sizes)
 trainloader = dataloaders['train']
 testloader = dataloaders['test']
 
+print('dataset: ' + dataset)
+print('depth: ' + str(depth))
+
 # Load model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 use_cuda = torch.cuda.is_available()
@@ -65,16 +65,25 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
     print('repeat: ' + str(iter + 1))
     for num_neuron in width_list:
         print('layer width: ' + str(num_neuron))
-        result_list = []
+        for sample_size in sample_size_list:
+            print('sample size: ' + str(sample_size))
 
-        net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
+            # building model
+            net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
 
-        torch.save(net, save_path + str(0) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1))
+            # training set
+            x_sub_train = x_train[:sample_size]
+            y_sub_train = y_train[:sample_size]
 
-        # training according to training epoch list
-        for index, training_epoch in enumerate(training_epoch_list):
+            # extend the dataset
+            expansion_factor = x_train.shape[0] // sample_size
+            x_sub_train_expansion = np.tile(x_sub_train, (expansion_factor, 1))
+            y_sub_train_expansion = np.tile(y_sub_train, (expansion_factor, 1))
 
             # training networks
-            #mlp.fit(x_train, y_train, batch_size=batch_size, epochs=training_epoch, verbose=1)
-            train(net=net, trainloader=trainloader, epoch=training_epoch, lr=lr, num_epochs=output_epoch_list[index])
-            torch.save(net, save_path + str(output_epoch_list[index]) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1))
+            mlp.fit(x_sub_train_expansion, y_sub_train_expansion, batch_size=batch_size, epochs=epoch, verbose=1)
+
+            mlp.save(save_path + str(sample_size) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' +
+                     str(depth) + '_iter' + str(iter + 1) + '.h5')
+
+        
