@@ -76,5 +76,6 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             # training networks
             #mlp.fit(x_train, y_train, batch_size=batch_size, epochs=training_epoch, verbose=1)
-            train(net=net, trainloader=trainloader, epoch=training_epoch, lr=lr, num_epochs=output_epoch_list[index])
+            for epoch in range(training_epoch):
+                train(net=net, trainloader=trainloader, epoch=epoch, lr=lr, num_epochs=40)
             torch.save(net, save_path + str(output_epoch_list[index]) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1))

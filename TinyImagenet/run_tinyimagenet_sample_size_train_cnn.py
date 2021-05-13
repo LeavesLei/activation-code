@@ -12,6 +12,41 @@ from utils import *
 import numpy as np
 import argparse
 
+class Dataset():
+    def __init__(self, x, y, transform=None):
+        assert(len(x) == len(y))
+        self.x = x
+        self.y = y
+        self.transform = transform
+
+    def __getitem__(self, idx):
+        x, y = self.x[idx], self.y[idx]
+        if self.transform is not None:
+            x = self.transform( Image.fromarray(x) )
+            # x = self.transform(x)
+        return x, y
+
+    def __len__(self):
+        return len(self.x)
+
+
+def TinyImageNet(root='./path', train=True, transform=None, sample_size=100000):
+    if train:
+        path = '{}/tiny-imagenet/train.npz'.format(root)
+    else:
+        path = '{}/tiny-imagenet/test.npz'.format(root)
+
+    data = np.load(path)
+    if train:
+        # extend the dataset
+        expansion_factor = 100000 // sample_size
+        x_sub_train = data['images'][range(0,100000,100000//sample_size)]
+        y_sub_train = data['labels'][range(0,100000,100000//sample_size)]
+        x_sub_train_expansion = np.tile(x_sub_train, (expansion_factor, 1))
+        y_sub_train_expansion = np.tile(y_sub_train, (expansion_factor, 1))
+        return Dataset(x=x_sub_train_expansion, y=y_sub_train_expansion, transform=transform)
+    else:
+        return Dataset(x=data['images'], y=data['labels'], transform=transform)
 
 # Basic hyper-parameters
 batch_size = 128
@@ -72,14 +107,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
 
             # training set
-            x_sub_train = x_train[:sample_size]
-            y_sub_train = y_train[:sample_size]
-
-            # extend the dataset
-            expansion_factor = x_train.shape[0] // sample_size
-            x_sub_train_expansion = np.tile(x_sub_train, (expansion_factor, 1))
-            y_sub_train_expansion = np.tile(y_sub_train, (expansion_factor, 1))
-
+            image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
+            trainloader = torch.utils.data.DataLoader(image_datasets['train'], batch_size=128, shuffle=True, num_workers=4)
             # training networks
             mlp.fit(x_sub_train_expansion, y_sub_train_expansion, batch_size=batch_size, epochs=epoch, verbose=1)
 
