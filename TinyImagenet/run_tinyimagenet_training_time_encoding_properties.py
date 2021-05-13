@@ -4,14 +4,17 @@
 # @File  : run_training_time_encoding_properties.py
 # @Author: LeavesLei
 # @Date  : 2020/8/13
-
-from load_data import *
-from activation_code_methods import *
+import sys
+sys.path.append("..") 
 from sklearn.cluster import KMeans
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.multiclass import OneVsOneClassifier
 from sklearn.linear_model import LogisticRegression
 import numpy as np
+import torch
+import torchvision.transforms as transforms
+from vgg import VGG16
+from utils import *
 
 repeat = 5
 begin_repeat = 1
