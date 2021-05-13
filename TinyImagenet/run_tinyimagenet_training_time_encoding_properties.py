@@ -30,7 +30,7 @@ n_clusters = num_classes
 width_list = width_list = [64, 128]
 output_epoch_list = [0, 1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
 
-# Load data
+# data loading
 data_transforms = {
     'train': transforms.Compose([
         transforms.RandomHorizontalFlip(0.5),
@@ -43,11 +43,11 @@ data_transforms = {
     ])
 }
 
-data_dir = data_dir = '/public/data1/users/leishiye/datasets'
+data_dir = '/public/data1/users/leishiye/datasets'
 image_datasets = dict()
 image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
 image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=128, shuffle=True, num_workers=4) for x in ['train', 'test']}
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'test']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
 
 print("dataset size: ")
@@ -95,6 +95,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
+            
             
             # compute clustering accuracy with kmeans
             train_cluster_result = KMeans(n_clusters=200, random_state=9).fit_predict(train_activation_codes)
