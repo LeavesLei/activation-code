@@ -49,7 +49,7 @@ def TinyImageNet(root='./path', train=True, transform=None, sample_size=100000):
         x_sub_train = data['images'][range(0,100000,100000//sample_size)]
         y_sub_train = data['labels'][range(0,100000,100000//sample_size)]
         x_sub_train_expansion = np.tile(x_sub_train, (expansion_factor, 1))
-        y_sub_train_expansion = np.tile(y_sub_train, (expansion_factor, 1))
+        y_sub_train_expansion = np.tile(y_sub_train, (expansion_factor))
         return Dataset(x=x_sub_train_expansion, y=y_sub_train_expansion, transform=transform)
     else:
         return Dataset(x=data['images'], y=data['labels'], transform=transform)
@@ -82,8 +82,9 @@ data_transforms = {
     ])
 }
 
-data_dir = data_dir = '/public/data1/users/leishiye/datasets'
+data_dir = '/public/data1/users/leishiye/datasets'
 image_datasets = dict()
+"""
 image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
 image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=128, shuffle=True, num_workers=4) for x in ['train', 'test']}
@@ -91,6 +92,7 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
 
 print("dataset size: ")
 print(dataset_sizes)
+"""
 
 trainloader = dataloaders['train']
 testloader = dataloaders['test']
