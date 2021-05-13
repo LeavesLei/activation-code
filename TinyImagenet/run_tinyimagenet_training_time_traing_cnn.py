@@ -71,6 +71,22 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
         torch.save(net, save_path + str(0) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1))
 
+        # compute activation code
+        train_activation_codes, train_label_scalar = compute_conv_code_list(trainloader, net)
+        test_activation_codes, test_label_scalar = compute_conv_code_list(testloader, net)
+
+        train_activation_codes = train_activation_codes[1]
+        test_activation_codes = test_activation_codes[1]
+
+        # compute redundancy ratio
+        test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
+            0]) / dataset_sizes['test']
+        train_redundancy_ratio = (train_activation_codes.shape[0] - np.unique(train_activation_codes, axis=0).shape[
+            0]) / dataset_sizes['train']
+
+        print("train redundancy ratio: " + str(train_redundancy_ratio))
+        print("test redundancy ratio: " + str(test_redundancy_ratio))
+
         # training according to training epoch list
         for index, training_epoch in enumerate(training_epoch_list):
 
@@ -78,4 +94,21 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             #mlp.fit(x_train, y_train, batch_size=batch_size, epochs=training_epoch, verbose=1)
             for epoch in range(training_epoch):
                 train(net=net, trainloader=trainloader, epoch=epoch, lr=lr, num_epochs=40)
+            
+            # compute activation code
+            train_activation_codes, train_label_scalar = compute_conv_code_list(trainloader, net)
+            test_activation_codes, test_label_scalar = compute_conv_code_list(testloader, net)
+
+            train_activation_codes = train_activation_codes[1]
+            test_activation_codes = test_activation_codes[1]
+
+            # compute redundancy ratio
+            test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
+                0]) / dataset_sizes['test']
+            train_redundancy_ratio = (train_activation_codes.shape[0] - np.unique(train_activation_codes, axis=0).shape[
+                0]) / dataset_sizes['train']
+
+            print("train redundancy ratio: " + str(train_redundancy_ratio))
+            print("test redundancy ratio: " + str(test_redundancy_ratio))
+            
             torch.save(net, save_path + str(output_epoch_list[index]) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1))
