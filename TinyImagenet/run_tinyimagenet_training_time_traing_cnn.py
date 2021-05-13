@@ -44,7 +44,7 @@ data_transforms = {
     ])
 }
 
-data_dir = data_dir = '/public/data1/users/leishiye/datasets'
+data_dir = '/public/data1/users/leishiye/datasets'
 image_datasets = dict()
 image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
 image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
@@ -110,5 +110,5 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
-            
+
             torch.save(net, save_path + str(output_epoch_list[index]) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1))
