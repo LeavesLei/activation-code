@@ -18,6 +18,7 @@ from utils import *
 
 repeat = 5
 begin_repeat = 1
+input_channel = 3
 batch_size = 128
 save_path = '/public/data1/users/leishiye/neural_code/results/training_time/result_list_training_process_'
 load_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
@@ -73,6 +74,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         # training according to training epoch list
         for training_epoch in output_epoch_list:
             # load model
+            net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
             net = torch.load(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)
 
             # evaluation
