@@ -73,27 +73,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
         # training according to training epoch list
         for training_epoch in output_epoch_list:
-            # load model
-            #net = torch.load(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)
-            #if training_epoch == 0:
+            net = torch.load(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)
 
-            """
-            data_dir = '/public/data1/users/leishiye/datasets'
-            image_datasets = dict()
-            image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
-            image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
-            dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'test']}
-            dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
-
-            print("dataset size: ")
-            print(dataset_sizes)
-
-            trainloader = dataloaders['train']
-            testloader = dataloaders['test']
-            """
-            
-            net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
-            
             # evaluation
             train_acc = test(net, trainloader, epoch=1)
             print("train accuracy: ", train_acc)
@@ -117,7 +98,6 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
             
-            """
             
             # compute clustering accuracy with kmeans
             train_cluster_result = KMeans(n_clusters=200, random_state=9).fit_predict(train_activation_codes)
@@ -150,9 +130,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             result_list.extend([None, train_acc, None, test_acc, train_redundancy_ratio,
                                 test_redundancy_ratio, train_clustering_accuracy_kmeans, test_clustering_accuracy_kmeans,
                                 knn_accuracy, logistic_accuracy])
-            """
-        """
+            
+        
         # save
         save_list(result_list,
                   save_path + dataset + '_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))
-        """
+        
