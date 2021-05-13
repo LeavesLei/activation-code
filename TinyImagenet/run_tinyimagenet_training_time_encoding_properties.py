@@ -93,13 +93,14 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             """
             
             net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
-            """
+            
             # evaluation
             train_acc = test(net, trainloader, epoch=1)
             print("train accuracy: ", train_acc)
             test_acc = test(net, testloader, epoch=1)
             print("test accuracy: ", test_acc)
-            """
+            
+            net.train()
             # compute activation code
             train_activation_codes, train_label_scalar = compute_conv_code_list(trainloader, net)
             test_activation_codes, test_label_scalar = compute_conv_code_list(testloader, net)
