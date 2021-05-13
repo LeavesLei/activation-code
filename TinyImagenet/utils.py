@@ -182,8 +182,6 @@ def load_list(path):
 def compute_clustering_accuracy(cluster_result, label, n_cluster=200):
     partition_matrix = contingency_matrix(label, cluster_result)
     _, label_mapping = linear_sum_assignment(-partition_matrix)
-    print(_)
-    print(label_mapping)
     for i in range(n_cluster):
         cluster_result[cluster_result == label_mapping[i]] = n_cluster + i
     cluster_result = cluster_result - n_cluster

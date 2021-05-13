@@ -28,7 +28,7 @@ num_classes = 200
 n_clusters = num_classes
 
 width_list = width_list = [64, 128]
-output_epoch_list = [0, 1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
+output_epoch_list = [1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
 
 # Load data
 data_transforms = {
@@ -97,7 +97,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("test redundancy ratio: " + str(test_redundancy_ratio))
 
             # compute clustering accuracy with kmeans
-            train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
+            print(train_activation_codes)
+            train_cluster_result = KMeans(n_clusters=200, random_state=9).fit_predict(train_activation_codes)
             print('train_cluster_result: ')
             print(train_cluster_result)
             print('train_label_scalar: ')
