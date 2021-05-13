@@ -10,7 +10,7 @@
 #SBATCH -t 10:00:00
 
 cd /public/data1/users/leishiye
-source .bashrc
+source bashrc-bak
 cd neural_code/activation-code/TinyImagenet
 
 python run_tinyimagenet_sample_size_train_cnn.py --begin_repeat 4
