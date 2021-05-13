@@ -179,7 +179,7 @@ def load_list(path):
     return data
 
 
-def compute_clustering_accuracy(cluster_result, label, n_cluster=10):
+def compute_clustering_accuracy(cluster_result, label, n_cluster=200):
     partition_matrix = contingency_matrix(label, cluster_result)
     _, label_mapping = linear_sum_assignment(-partition_matrix)
     for i in range(n_cluster):
@@ -188,19 +188,7 @@ def compute_clustering_accuracy(cluster_result, label, n_cluster=10):
     smstr = np.nonzero(label - cluster_result)
     clustering_accuracy = 1 - np.shape(smstr[0])[0] / label.shape[0]
     match_index = np.array([1 if label[i]==cluster_result[i] else 0 for i in range(label.shape[0])])
-    
-    # compute clustering accuracy of single class
-    """
-    single_class_clustering_accuracy = []
-    for i in range(n_cluster):
-        sub_clustering_result = cluster_result[label==i]
-        sub_label = label[label==i]
-        sub_smstr = np.nonzero(sub_label - sub_clustering_result)
-        single_class_clustering_accuracy.append(1 - np.shape(sub_smstr[0])[0] / sub_label.shape[0])
-    """
-    
-    #return clustering_accuracy, single_class_clustering_accuracy, match_index, partition_matrix
-    return clustering_accuracy, match_index, partition_matrix
+    return clustering_accuracy
 
 
 class Dataset():
