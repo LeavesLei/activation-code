@@ -18,6 +18,7 @@ from utils import *
 
 repeat = 5
 begin_repeat = 1
+batch_size = 128
 save_path = '/public/data1/users/leishiye/neural_code/results/training_time/result_list_training_process_'
 load_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
 depth = 1
