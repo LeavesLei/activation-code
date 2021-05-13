@@ -48,7 +48,7 @@ def TinyImageNet(root='./path', train=True, transform=None, sample_size=100000):
         expansion_factor = 100000 // sample_size
         x_sub_train = data['images'][range(0,100000,100000//sample_size)]
         y_sub_train = data['labels'][range(0,100000,100000//sample_size)]
-        x_sub_train_expansion = np.tile(x_sub_train, (expansion_factor, 1))
+        x_sub_train_expansion = np.tile(x_sub_train, (expansion_factor, 1, 1, 1))
         y_sub_train_expansion = np.tile(y_sub_train, (expansion_factor))
         return Dataset(x=x_sub_train_expansion, y=y_sub_train_expansion, transform=transform)
     else:
