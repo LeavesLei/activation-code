@@ -76,6 +76,20 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             # load model
             #net = torch.load(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)
             #if training_epoch == 0:
+
+            data_dir = '/public/data1/users/leishiye/datasets'
+            image_datasets = dict()
+            image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
+            image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
+            dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'test']}
+            dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
+
+            print("dataset size: ")
+            print(dataset_sizes)
+
+            trainloader = dataloaders['train']
+            testloader = dataloaders['test']
+
             net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
             # evaluation
             train_acc = test(net, trainloader, epoch=1)
