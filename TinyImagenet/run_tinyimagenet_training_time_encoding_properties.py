@@ -74,7 +74,6 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         # training according to training epoch list
         for training_epoch in output_epoch_list:
             # load model
-            net = VGG16(n_classes=num_classes, input_channel=input_channel, layer_width=num_neuron).to(device)
             net = torch.load(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)
 
             # evaluation
@@ -89,7 +88,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             train_activation_codes = train_activation_codes[1]
             test_activation_codes = test_activation_codes[1]
-
+            
             # compute redundancy ratio
             test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
                 0]) / dataset_sizes['test']
@@ -99,6 +98,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
             
+            """
             
             # compute clustering accuracy with kmeans
             train_cluster_result = KMeans(n_clusters=200, random_state=9).fit_predict(train_activation_codes)
@@ -131,7 +131,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             result_list.extend([None, train_acc, None, test_acc, train_redundancy_ratio,
                                 test_redundancy_ratio, train_clustering_accuracy_kmeans, test_clustering_accuracy_kmeans,
                                 knn_accuracy, logistic_accuracy])
-            
+            """
+        """
         # save
         save_list(result_list,
                   save_path + dataset + '_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))
+        """
