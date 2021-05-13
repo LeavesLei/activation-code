@@ -45,7 +45,7 @@ data_dir = '/public/data1/users/leishiye/datasets'
 image_datasets = dict()
 image_datasets['train'] = TinyImageNet(data_dir, train=True, transform=data_transforms['train'])
 image_datasets['test'] = TinyImageNet(data_dir, train=False, transform=data_transforms['test'])
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=128, shuffle=True, num_workers=4) for x in ['train', 'test']}
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'test']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
 
 print("dataset size: ")

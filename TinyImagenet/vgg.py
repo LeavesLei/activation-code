@@ -17,13 +17,13 @@ def vgg_conv_block(in_list, out_list, k_list, p_list, pooling_k, pooling_s):
 def vgg_fc_layer(size_in, size_out):
     layer = tnn.Sequential(
         tnn.Linear(size_in, size_out),
-        tnn.BatchNorm1d(size_out),
+        #tnn.BatchNorm1d(size_out),
         tnn.ReLU()
     )
     return layer
 
 class VGG16(tnn.Module):
-    def __init__(self, n_classes=10, input_channel=3, layer_width=32):
+    def __init__(self, n_classes=10, input_channel=3, layer_width=64):
         super(VGG16, self).__init__()
 
         self.layer1 = conv_layer(input_channel, 64, 3, 1)
