@@ -22,7 +22,7 @@ save_path = '/public/data1/users/leishiye/neural_code/results/training_time/resu
 load_path = '/public/data1/users/leishiye/neural_code/models/training_time/model_training_process_'
 depth = 1
 
-dataset = 'imagenet'
+dataset = 'tinyimagenet'
 
 num_classes = 200
 n_clusters = num_classes
