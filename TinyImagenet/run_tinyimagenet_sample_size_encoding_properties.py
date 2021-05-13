@@ -123,13 +123,13 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             # compute redundancy ratio
             test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
-                0]) / x_test.shape[0]
+                0]) / dataset_sizes['test']
             train_redundancy_ratio = (train_activation_codes.shape[0] - np.unique(train_activation_codes, axis=0).shape[
-                0]) / x_sub_train.shape[0]
+                0]) / dataset_sizes['train']
 
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
-
+            """
             # compute clustering accuracy with kmeans
             train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
             train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
@@ -162,5 +162,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
                                 test_redundancy_ratio,
                                 train_clustering_accuracy_kmeans, test_clustering_accuracy_kmeans, knn_accuracy,
                                 logistic_accuracy])
+            """
+        """
         # save
         save_list(result_list, save_path + dataset + '_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))
+        """
