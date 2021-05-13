@@ -92,11 +92,10 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test']}
 
 print("dataset size: ")
 print(dataset_sizes)
-"""
 
 trainloader = dataloaders['train']
 testloader = dataloaders['test']
-
+"""
 print('dataset: ' + dataset)
 print('depth: ' + str(depth))
 
