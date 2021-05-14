@@ -130,14 +130,19 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
 
             print("train redundancy ratio: " + str(train_redundancy_ratio))
             print("test redundancy ratio: " + str(test_redundancy_ratio))
-            """
+            
             # compute clustering accuracy with kmeans
-            train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
-            train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
-
-            test_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(test_activation_codes)
-            test_clustering_accuracy_kmeans = compute_clustering_accuracy(test_cluster_result, test_label_scalar, n_cluster=n_clusters)
-
+            try:
+                train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
+                train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
+            except:
+                train_clustering_accuracy_kmeans = None
+            
+            try:
+                test_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(test_activation_codes)
+                test_clustering_accuracy_kmeans = compute_clustering_accuracy(test_cluster_result, test_label_scalar, n_cluster=n_clusters)
+            except:
+                test_clustering_accuracy_kmeans = None
             print("train_clustering_accuracy_kmeans: " + str(train_clustering_accuracy_kmeans))
             print("test_clustering_accuracy_kmeans: " + str(test_clustering_accuracy_kmeans))
 
@@ -163,8 +168,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
                                 test_redundancy_ratio,
                                 train_clustering_accuracy_kmeans, test_clustering_accuracy_kmeans, knn_accuracy,
                                 logistic_accuracy])
-            """
-        """
+            
+        
         # save
         save_list(result_list, save_path + dataset + '_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))
-        """
+        
