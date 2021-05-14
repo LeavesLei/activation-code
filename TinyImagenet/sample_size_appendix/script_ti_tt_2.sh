@@ -13,4 +13,4 @@ cd /public/data1/users/leishiye
 source bashrc-bak
 cd neural_code/activation-code/TinyImagenet/sample_size_appendix
 
-python run_tinyimagenet_sample_size_train_cnn_appendix.pyy --begin_repeat 2
+python run_tinyimagenet_sample_size_train_cnn_appendix.py --begin_repeat 2
