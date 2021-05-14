@@ -2,7 +2,8 @@
 # @File  : run_sample_size_train_mlp.py
 # @Author: LeavesLei
 # @Date  : 2020/8/13
-
+import sys
+sys.path.append("..") 
 import torch, os
 import torchvision.datasets as datasets
 import torch.utils.data as data
