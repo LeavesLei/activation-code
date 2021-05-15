@@ -15,9 +15,14 @@ import torch
 import torchvision.transforms as transforms
 from vgg import VGG16
 from utils import *
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--begin_repeat', type=int, default=2, help=' begin repeat num')
+args = parser.parse_args()
 
 repeat = 5
-begin_repeat = 3
+begin_repeat = args.begin_repeat
 input_channel = 3
 batch_size = 128
 save_path = '/public/data1/users/leishiye/neural_code/results/training_time/result_list_training_process_'
