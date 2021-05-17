@@ -31,7 +31,7 @@ dataset = 'tinyimagenet'
 num_classes = 200
 n_clusters = num_classes
 
-width_list = width_list = [64, 128]
+width_list = width_list = [128]# [64, 128]
 output_epoch_list = [0, 1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
 
 # data loading
