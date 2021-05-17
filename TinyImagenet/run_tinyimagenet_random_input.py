@@ -51,7 +51,8 @@ class Dataset():
     def __init__(self, x, y, transform=None):
         assert(len(x) == len(y))
         print(x.shape)
-        self.x = np.random.randint(256, size=x.shape) # random inputs
+        #self.x = np.random.randint(256, size=x.shape) # random inputs
+        self.x = x
         self.y = y
         self.transform = transform
 
