@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 from load_data import *
 from activation_code_methods import *
 from keras.callbacks import LearningRateScheduler
