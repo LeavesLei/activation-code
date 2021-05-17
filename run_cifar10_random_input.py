@@ -65,7 +65,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("test accuracy: ", test_score[1])
             """
             # compute activation code
-            train_activation_codes, test_activation_codes = compute_activation_code_for_mlp(x_train, x_test, model=mlp)
+            train_activation_codes, test_activation_codes = compute_activation_code_for_mlp(random_x_train, random_x_test, model=mlp)
 
             # compute redundancy ratio
             test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
