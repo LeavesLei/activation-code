@@ -126,8 +126,8 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             train_redundancy_ratio = (train_activation_codes.shape[0] - np.unique(train_activation_codes, axis=0).shape[
                 0]) / dataset_sizes['train']
 
-            print("train redundancy ratio: " + str(train_redundancy_ratio))
-            print("test redundancy ratio: " + str(test_redundancy_ratio))
+            print("random train redundancy ratio: " + str(train_redundancy_ratio))
+            print("random test redundancy ratio: " + str(test_redundancy_ratio))
             
             """
             # compute clustering accuracy with kmeans
