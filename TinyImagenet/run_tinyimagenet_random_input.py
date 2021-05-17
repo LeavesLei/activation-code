@@ -31,7 +31,7 @@ dataset = 'tinyimagenet'
 num_classes = 200
 n_clusters = num_classes
 
-width_list = width_list = [128]# [64, 128]
+width_list = width_list = [64, 128]
 output_epoch_list = [0, 1, 2, 3, 6, 8, 10, 13, 17, 20, 25, 30, 35, 40]
 
 # data loading
@@ -51,8 +51,8 @@ class Dataset():
     def __init__(self, x, y, transform=None):
         assert(len(x) == len(y))
         print(x.shape)
-        #self.x = np.random.randint(256, size=x.shape) # random inputs
-        self.x = x
+        self.x = np.random.randint(256, size=x.shape) # random inputs
+        #self.x = x
         self.y = y
         self.transform = transform
 
@@ -160,7 +160,6 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("logistic_accuracy: " + str(logistic_accuracy))
             """
             result_list.extend([train_redundancy_ratio, test_redundancy_ratio])
-            
         
         # save
         save_list(result_list,
