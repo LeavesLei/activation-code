@@ -1,10 +1,5 @@
-#-*- coding:utf-8 _*-  
-
-# encoding: utf-8
-# @File  : run_sample_size_encoding_properties.py
-# @Author: LeavesLei
-# @Date  : 2020/8/13
-
+import sys
+sys.path.append("..")
 import numpy as np
 import argparse
 from load_data import *

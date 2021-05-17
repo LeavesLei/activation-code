@@ -23,7 +23,7 @@ dataset = 'imdb'
 num_classes = 2
 n_clusters = num_classes
 
-width_list = [150] #[60, 80, 100]
+width_list = [60, 80, 100, 150] #[60, 80, 100]
 output_epoch_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 18, 20]
 
 # Load data
@@ -50,6 +50,10 @@ y_train = np.asarray(y_train).astype('float32')
 y_test = np.asarray(y_test).astype('float32')
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
+
+# Generate random instance
+random_x_train = np.random.rand(*x_train.shape)
+random_x_test = np.random.rand(*x_test.shape)
 ###########################################
 
 train_label_scalar = np.argmax(y_train, axis=1).squeeze()
@@ -70,7 +74,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         for training_epoch in output_epoch_list:
             # load model
             mlp = load_model(load_path + str(training_epoch) + '_width_' + str(num_neuron) + '_' + dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1) + '.h5')
-
+            """
             # evaluation
             train_score = mlp.evaluate(x_train, y_train, verbose=0)
             print("train loss: ", train_score[0])
@@ -78,9 +82,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             test_score = mlp.evaluate(x_test, y_test, verbose=0)
             print("test loss: ", test_score[0])
             print("test accuracy: ", test_score[1])
-
+            """
             # compute activation code
-            train_activation_codes, test_activation_codes = compute_activation_code_for_mlp(x_train, x_test, model=mlp)
+            train_activation_codes, test_activation_codes = compute_activation_code_for_mlp(random_x_train, random_x_test, model=mlp)
 
             # compute redundancy ratio
             test_redundancy_ratio = (test_activation_codes.shape[0] - np.unique(test_activation_codes, axis=0).shape[
@@ -88,9 +92,10 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             train_redundancy_ratio = (train_activation_codes.shape[0] - np.unique(train_activation_codes, axis=0).shape[
                 0]) / x_train.shape[0]
 
-            print("train redundancy ratio: " + str(train_redundancy_ratio))
-            print("test redundancy ratio: " + str(test_redundancy_ratio))
+            print("random train redundancy ratio: " + str(train_redundancy_ratio))
+            print("random test redundancy ratio: " + str(test_redundancy_ratio))
 
+            """
             # compute clustering accuracy with kmeans
             train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
             train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar)
@@ -118,11 +123,9 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             logistic_accuracy = 1 - np.shape(smstr[0])[0] / test_label_scalar.shape[0]
 
             print("logistic_accuracy: " + str(logistic_accuracy))
-
-            result_list.extend([train_score[0], train_score[1], test_score[0], test_score[1], train_redundancy_ratio,
-                                test_redundancy_ratio, train_clustering_accuracy_kmeans, test_clustering_accuracy_kmeans,
-                                knn_accuracy, logistic_accuracy])
+            """
+            result_list.extend([train_redundancy_ratio, test_redundancy_ratio])
 
         # save
         save_list(result_list,
-                  save_path + dataset + '_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))
+                  save_path + dataset + '_random_input_depth_' + str(depth) + '_width_' + str(num_neuron) + '_iter' + str(iter + 1))

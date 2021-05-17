@@ -1,8 +1,5 @@
-# encoding: utf-8
-# @File  : run_sample_size_train_mlp.py
-# @Author: LeavesLei
-# @Date  : 2020/8/13
-
+import sys
+sys.path.append("..")
 from load_data import *
 from activation_code_methods import *
 import numpy as np
