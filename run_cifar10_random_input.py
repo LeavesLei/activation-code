@@ -49,8 +49,8 @@ x_train = x_train[mask]
 y_train = y_train[mask]
 
 # Generate random instance
-random_x_train = np.random.rand(*x_train.shape)
-random_x_test = np.random.rand(*x_test.shape)
+random_x_train = -np.random.rand(*x_train.shape)
+random_x_test = -np.random.rand(*x_test.shape)
 
 train_label_scalar = np.argmax(y_train, axis=1).squeeze()
 val_label_scalar = np.argmax(y_val, axis=1).squeeze()
