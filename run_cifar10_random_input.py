@@ -1,25 +1,8 @@
 from load_data import *
 from activation_code_methods import *
-from sklearn.cluster import KMeans
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.multiclass import OneVsOneClassifier
-from sklearn.linear_model import LogisticRegression
 from keras.models import load_model
-import argparse
 
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument('--begin_repeat', type=int, default=1, help=' begin repeat num')
-parser.add_argument('--repeat', type=int, default=2, help='repeat times')
-parser.add_argument('--dataset', type=str, default='cifar10', help='dataset')
-parser.add_argument('--mnist_path', type=str, default='mnist.npz', help='MNIST path')
-parser.add_argument('--cifar10_path', type=str, default='/public/data1/users/leishiye/datasets/cifar-10-batches-py', help='CIFAR10 path')
-parser.add_argument('--load_path', type=str, default='model/training_time/model_training_process_', help='load model path')
-parser.add_argument('--save_path', type=str, default='result_new/training_time/result_list_training_process_', help='save path')
-parser.add_argument('--depth', type=int, default=5, help='depth')
-args = parser.parse_args()
-
+cifar10_path = '/public/data1/users/leishiye/datasets/cifar-10-batches-py'
 repeat = 10
 begin_repeat = 1
 load_path = '/public/data1/users/leishiye/neural_code/models/training_time_cifar10/model_training_process_'
@@ -34,7 +17,7 @@ width_list = [50, 100, 200, 400]
 output_epoch_list = [0, 1, 3, 6, 10, 20, 30, 40, 60, 80, 100, 120, 140, 160, 180, 200]
 
 # load dataset
-(x_train, y_train), (x_test, y_test) = load_cifar10(args.cifar10_path)
+(x_train, y_train), (x_test, y_test) = load_cifar10(cifar10_path)
 x_train = x_train.reshape(x_train.shape[0], -1)
 x_test = x_test.reshape(x_test.shape[0], -1)
 
