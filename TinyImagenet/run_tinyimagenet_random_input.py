@@ -112,7 +112,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             test_acc = test(net, testloader, epoch=1)
             print("test accuracy: ", test_acc)
             """
-            net.train()
+            net.eval()
             # compute activation code
             train_activation_codes, train_label_scalar = compute_conv_code_list(trainloader, net)
             test_activation_codes, test_label_scalar = compute_conv_code_list(testloader, net)
