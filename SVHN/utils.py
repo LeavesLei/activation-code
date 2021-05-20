@@ -22,7 +22,7 @@ def compute_conv_code_list(data, net):
     with torch.no_grad():
         for batch_idx, (inputs, targets) in enumerate(data):
             if use_cuda:
-                inputs, targets = inputs.cuda(), targets.cuda()
+                inputs, targets = inputs.cuda().reshape(-1, 32*32*3), targets.cuda()
             inputs, targets = Variable(inputs), Variable(targets)
             *aggregate_code_list, output = net(inputs)
             aggregate_code_list = [(j>0).detach().cpu().numpy() for j in aggregate_code_list]
