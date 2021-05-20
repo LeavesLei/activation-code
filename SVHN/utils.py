@@ -78,7 +78,7 @@ def train(net, trainloader, epoch=1, lr=0.1, num_epochs=100):
     print('\n=> Training Epoch #%d, LR=%.4f' %(epoch, learning_rate(lr, epoch)))
     for batch_idx, (inputs, targets) in enumerate(trainloader):
         if use_cuda:
-            inputs, targets = inputs.cuda(), targets.cuda() # GPU settings
+            inputs, targets = inputs.cuda().reshape(-1, 32*32*3), targets.cuda() # GPU settings
         optimizer.zero_grad()
         inputs, targets = Variable(inputs), Variable(targets)
         *_, outputs = net(inputs)
@@ -107,7 +107,7 @@ def test(net, testloader, epoch=1):
     with torch.no_grad():
         for batch_idx, (inputs, targets) in enumerate(testloader):
             if use_cuda:
-                inputs, targets = inputs.cuda(), targets.cuda()
+                inputs, targets = inputs.cuda().reshape(-1, 32*32*3), targets.cuda()
             inputs, targets = Variable(inputs), Variable(targets)
             *_,  outputs = net(inputs)
             loss = criterion(outputs, targets)
