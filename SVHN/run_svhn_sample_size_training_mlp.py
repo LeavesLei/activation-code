@@ -1,4 +1,3 @@
-from SVHN.utils import train
 import torch, os
 import torchvision.datasets as datasets
 import torch.utils.data as data
