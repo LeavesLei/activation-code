@@ -45,7 +45,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
         for sample_size in sample_size_list:
             print('sample size: ' + str(sample_size))
 
-            trainloader, testloader, _ = load_svhn(dataset, batch_size, train=False, sample_size=sample_size)
+            trainloader, testloader, _ = load_svhn_sample_size(dataset, batch_size, train=False, sample_size=sample_size)
 
             net = torch.load(load_path + str(sample_size) + '_width_' + str(num_neuron) + '_' +
                              dataset + '_depth_' + str(depth) + '_iter' + str(iter + 1)).to(device)

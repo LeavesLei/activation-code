@@ -46,7 +46,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             net = MLP(n_classes=num_classes, hidden_units=num_neuron).to(device)
 
             # training set
-            trainloader, _, _ = load_svhn(dataset, batch_size, train=True, sample_size=sample_size)
+            trainloader, _, _ = load_svhn_sample_size(dataset, batch_size, train=True, sample_size=sample_size)
             for epoch in range(num_epochs):
                 train(net=net, trainloader=trainloader, epoch=epoch, lr=lr, num_epochs=num_epochs)
 
