@@ -11,7 +11,7 @@ from scipy.spatial.distance import squareform
 from sklearn.metrics.cluster import contingency_matrix
 from scipy.optimize import linear_sum_assignment
 import torchvision
-from PIL import Image
+import torchvision.transforms as transforms
 import warnings
 warnings.filterwarnings("ignore")
 
