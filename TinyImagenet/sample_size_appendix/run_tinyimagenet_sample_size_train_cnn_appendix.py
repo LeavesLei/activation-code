@@ -63,9 +63,9 @@ input_channel = 3
 num_classes = 200
 lr = 0.001
 
-width_list = [128]
+width_list = [64, 128]
 
-sample_size_list = [20000, 50000, 100000]
+sample_size_list = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]
 # data loading
 data_transforms = {
     'train': transforms.Compose([

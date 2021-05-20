@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=10
 #SBATCH --gres=gpu:1
 #SBATCH -o ti_ss_4.out
-#SBATCH -t 10:00:00
+#SBATCH -t 5:00:00
 
 cd /public/data1/users/leishiye
 source bashrc-bak

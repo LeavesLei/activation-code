@@ -115,7 +115,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             print("test accuracy: ", test_acc)
 
             # compute activation code
-            net.train()
+            net.eval()
             train_activation_codes, train_label_scalar = compute_conv_code_list(trainloader, net)
             test_activation_codes, test_label_scalar = compute_conv_code_list(testloader, net)
 

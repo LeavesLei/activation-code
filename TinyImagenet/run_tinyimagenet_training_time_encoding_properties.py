@@ -15,9 +15,15 @@ import torch
 import torchvision.transforms as transforms
 from vgg import VGG16
 from utils import *
+import argparse
 
-repeat = 5
-begin_repeat = 1
+parser = argparse.ArgumentParser()
+parser.add_argument('--begin_repeat', type=int, default=1, help=' begin repeat num')
+args = parser.parse_args()
+
+begin_repeat = args.begin_repeat
+
+repeat = 1
 input_channel = 3
 batch_size = 128
 save_path = '/public/data1/users/leishiye/neural_code/results/training_time/result_list_training_process_'
@@ -81,7 +87,7 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             test_acc = test(net, testloader, epoch=1)
             print("test accuracy: ", test_acc)
             
-            net.train()
+            net.eval()
             # compute activation code
             train_activation_codes, train_label_scalar = compute_conv_code_list(trainloader, net)
             test_activation_codes, test_label_scalar = compute_conv_code_list(testloader, net)
@@ -100,11 +106,17 @@ for iter in np.linspace(begin_repeat-1, begin_repeat + repeat-2, repeat).astype(
             
             
             # compute clustering accuracy with kmeans
-            train_cluster_result = KMeans(n_clusters=200, random_state=9).fit_predict(train_activation_codes)
-            train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
-
-            test_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(test_activation_codes)
-            test_clustering_accuracy_kmeans = compute_clustering_accuracy(test_cluster_result, test_label_scalar, n_cluster=n_clusters)
+            try:
+                train_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(train_activation_codes)
+                train_clustering_accuracy_kmeans = compute_clustering_accuracy(train_cluster_result, train_label_scalar, n_cluster=n_clusters)
+            except:
+                train_clustering_accuracy_kmeans = None
+            
+            try:
+                test_cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(test_activation_codes)
+                test_clustering_accuracy_kmeans = compute_clustering_accuracy(test_cluster_result, test_label_scalar, n_cluster=n_clusters)
+            except:
+                test_clustering_accuracy_kmeans = None
 
             print("train_clustering_accuracy_kmeans: " + str(train_clustering_accuracy_kmeans))
             print("test_clustering_accuracy_kmeans: " + str(test_clustering_accuracy_kmeans))
