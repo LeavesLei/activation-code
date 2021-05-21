@@ -21,6 +21,7 @@ depth = 1
 dataset = 'svhn'
 
 num_classes = 10
+batch_size = 128
 n_clusters = num_classes
 width_list = [10, 15, 20, 23, 27, 30, 33, 37, 40, 43, 47, 50, 53, 57, 60, 65, 70, 75, 80, 90, 100]
 
