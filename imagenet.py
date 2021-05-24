@@ -32,25 +32,6 @@ parser.add_argument('--gpu', default=True, type=int,
                     help='GPU id to use.')
 args = parser.parse_args()
 
-valdir = '/public/data0/datasets/imagenet2012/ILSVRC2012_img_val'
-normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                     std=[0.229, 0.224, 0.225])
-
-val_loader = torch.utils.data.DataLoader(
-        datasets.ImageFolder(valdir, transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            normalize,
-        ])),
-        batch_size=args.batch_size, shuffle=False,
-        num_workers=args.workers, pin_memory=True)
-
-model = models.vgg19(pretrained=True)
-criterion = nn.CrossEntropyLoss().cuda(args.gpu)
-
-validate(val_loader, model, criterion, args)
-
 def validate(val_loader, model, criterion, args):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -94,3 +75,23 @@ def validate(val_loader, model, criterion, args):
               .format(top1=top1, top5=top5))
 
     return top1.avg
+
+
+valdir = '/public/data0/datasets/imagenet2012/ILSVRC2012_img_val'
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                     std=[0.229, 0.224, 0.225])
+
+val_loader = torch.utils.data.DataLoader(
+        datasets.ImageFolder(valdir, transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            normalize,
+        ])),
+        batch_size=args.batch_size, shuffle=False,
+        num_workers=args.workers, pin_memory=True)
+
+model = models.vgg19(pretrained=True)
+criterion = nn.CrossEntropyLoss().cuda(args.gpu)
+
+validate(val_loader, model, criterion, args)
