@@ -51,7 +51,7 @@ clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_s
 print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
 
 # compute clusterisng accuracy with KNN
-neigh = KNeighborsClassifier(n_neighbors=9, metric='hamming').fit(train_activation_codes,
+neigh = KNeighborsClassifier(n_neighbors=9, metric='euclidean').fit(train_activation_codes,
                                                                     train_label_scalar)
 knn_pred_result = neigh.predict(test_activation_codes)
 smstr = np.nonzero(test_label_scalar - knn_pred_result)
