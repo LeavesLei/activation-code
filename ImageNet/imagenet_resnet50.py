@@ -17,9 +17,9 @@ def compute_clustering_accuracy(cluster_result, label, n_cluster=1000):
     clustering_accuracy = 1 - np.shape(smstr[0])[0] / label.shape[0]
     return clustering_accuracy
 
-neural_code_dir = '/public/data1/users/leishiye/neural_code/results/neural_code_vgg19/vgg19_code_layer_'
+neural_code_dir = '/public/data1/users/leishiye/neural_code/results/neural_code_resnet50/resnet50_code_layer_'
 
-for i in range(18):
+for i in range(17):
     layer_code = np.load(neural_code_dir + str(i) + '.npy')
     # normalize
     layer_code = layer_code / (np.max(layer_code) - np.min(layer_code))
@@ -28,7 +28,7 @@ for i in range(18):
     else:
         neural_code = np.hstack((neural_code, layer_code))
 
-label_scalar = np.load('/public/data1/users/leishiye/neural_code/results/neural_code_vgg19/imagenet_val_label.npy')
+label_scalar = np.load('/public/data1/users/leishiye/neural_code/results/neural_code_resnet50/imagenet_val_label.npy')
 
 # Split training data and test data
 mask = np.array([i%5==0 for i in range(50000)])
