@@ -30,6 +30,8 @@ parser.add_argument('-b', '--batch_size', default=128, type=int,
                          'using Data Parallel or Distributed Data Parallel')
 parser.add_argument('--gpu', default=True, type=int,
                     help='GPU id to use.')
+parser.add_argument('-p', '--print_freq', default=10, type=int,
+                    metavar='N', help='print frequency (default: 10)')
 args = parser.parse_args()
 
 class AverageMeter(object):
@@ -70,7 +72,24 @@ class ProgressMeter(object):
         num_digits = len(str(num_batches // 1))
         fmt = '{:' + str(num_digits) + 'd}'
         return '[' + fmt + '/' + fmt.format(num_batches) + ']'
-        
+
+
+def accuracy(output, target, topk=(1,)):
+    """Computes the accuracy over the k top predictions for the specified values of k"""
+    with torch.no_grad():
+        maxk = max(topk)
+        batch_size = target.size(0)
+
+        _, pred = output.topk(maxk, 1, True, True)
+        pred = pred.t()
+        correct = pred.eq(target.view(1, -1).expand_as(pred))
+
+        res = []
+        for k in topk:
+            correct_k = correct[:k].reshape(-1).float().sum(0, keepdim=True)
+            res.append(correct_k.mul_(100.0 / batch_size))
+        return res
+
 def validate(val_loader, model, criterion, args):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -87,10 +106,9 @@ def validate(val_loader, model, criterion, args):
     with torch.no_grad():
         end = time.time()
         for i, (images, target) in enumerate(val_loader):
-            if args.gpu is not None:
-                images = images.cuda(args.gpu, non_blocking=True)
-            if torch.cuda.is_available():
-                target = target.cuda(args.gpu, non_blocking=True)
+            if use_cuda:
+                images = images.cuda()
+                target = target.cuda()
 
             # compute output
             output = model(images)
@@ -132,5 +150,7 @@ val_loader = torch.utils.data.DataLoader(
 
 model = models.vgg19(pretrained=True)
 criterion = nn.CrossEntropyLoss().cuda(args.gpu)
+
+use_cuda = torch.cuda.is_available()
 
 validate(val_loader, model, criterion, args)
