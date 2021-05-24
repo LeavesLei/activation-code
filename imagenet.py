@@ -148,9 +148,9 @@ val_loader = torch.utils.data.DataLoader(
         batch_size=args.batch_size, shuffle=False,
         num_workers=args.workers, pin_memory=True)
 
-model = models.vgg19(pretrained=True)
-criterion = nn.CrossEntropyLoss().cuda(args.gpu)
-
 use_cuda = torch.cuda.is_available()
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = models.vgg19(pretrained=True).to(device)
+criterion = nn.CrossEntropyLoss().cuda(args.gpu)
 
 validate(val_loader, model, criterion, args)
