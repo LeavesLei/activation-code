@@ -44,11 +44,14 @@ print(train_label_scalar.shape)
 print(test_activation_codes.shape)
 print(test_label_scalar.shape)
 
-n_clusters = 1000
-cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(neural_code)
-clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_scalar)
+# compute multiclass logisticRegression
+logistic_classifier = OneVsOneClassifier(LogisticRegression(solver='liblinear', random_state=9)).fit(train_activation_codes,
+                                                                                    train_label_scalar)
+logistic_pred_result = logistic_classifier.predict(test_activation_codes)
+smstr = np.nonzero(test_label_scalar - logistic_pred_result)
+logistic_accuracy = 1 - np.shape(smstr[0])[0] / test_label_scalar.shape[0]
 
-print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
+print("logistic_accuracy: " + str(logistic_accuracy))
 
 # compute clusterisng accuracy with KNN
 neigh = KNeighborsClassifier(n_neighbors=9, metric='euclidean').fit(train_activation_codes,
@@ -59,11 +62,10 @@ knn_accuracy = 1 - np.shape(smstr[0])[0] / test_label_scalar.shape[0]
 
 print("knn_accuracy: " + str(knn_accuracy))
 
-# compute multiclass logisticRegression
-logistic_classifier = OneVsOneClassifier(LogisticRegression(solver='liblinear', random_state=9)).fit(train_activation_codes,
-                                                                                    train_label_scalar)
-logistic_pred_result = logistic_classifier.predict(test_activation_codes)
-smstr = np.nonzero(test_label_scalar - logistic_pred_result)
-logistic_accuracy = 1 - np.shape(smstr[0])[0] / test_label_scalar.shape[0]
+n_clusters = 1000
+cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(neural_code)
+clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_scalar)
 
-print("logistic_accuracy: " + str(logistic_accuracy))
+print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
+
+np.save('/public/data1/users/leishiye/neural_code/results/neural_code_resnet50/resnet50_results', np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))
