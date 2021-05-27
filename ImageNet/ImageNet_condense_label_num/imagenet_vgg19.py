@@ -79,7 +79,7 @@ print("knn_accuracy: " + str(knn_accuracy))
 
 n_clusters = num_class
 cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(neural_code)
-clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_scalar)
+clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_scalar, n_cluster=num_class)
 
 print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
 
