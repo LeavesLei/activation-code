@@ -37,6 +37,11 @@ for i in range(17):
 test_label_scalar = np.load('/export/leishiye/neural_code_tinyimagenet/neural_code_resnet50/test_label.npy')
 train_label_scalar = np.load('/export/leishiye/neural_code_tinyimagenet/neural_code_resnet50/train_label.npy')
 
+print(train_activation_codes.shape)
+print(train_label_scalar.shape)
+print(test_activation_codes.shape)
+print(test_label_scalar.shape)
+
 num_class = 200
 
 # compute multiclass logisticRegression
