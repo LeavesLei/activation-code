@@ -26,9 +26,9 @@ def compute_clustering_accuracy(cluster_result, label, n_cluster=1000):
     clustering_accuracy = 1 - np.shape(smstr[0])[0] / label.shape[0]
     return clustering_accuracy
 
-neural_code_dir = '/export/leishiye/neural_code/neural_code_vgg19/vgg19_code_layer_'
+neural_code_dir = '/export/leishiye/neural_code/neural_code_resnet50/resnet50_code_layer_'
 
-for i in range(18):
+for i in range(17):
     layer_code = np.load(neural_code_dir + str(i) + '.npy')
     # normalize
     layer_code = layer_code / (np.max(layer_code) - np.min(layer_code))
@@ -37,7 +37,7 @@ for i in range(18):
     else:
         neural_code = np.hstack((neural_code, layer_code))
 
-label_scalar = np.load('/export/leishiye/neural_code/neural_code_vgg19/imagenet_val_label.npy')
+label_scalar = np.load('/export/leishiye/neural_code/neural_code_resnet50/imagenet_val_label.npy')
 
 # Condense neural code and label
 ratio = 1000 // num_class
@@ -77,10 +77,10 @@ knn_accuracy = 1 - np.shape(smstr[0])[0] / test_label_scalar.shape[0]
 
 print("knn_accuracy: " + str(knn_accuracy))
 
-n_clusters = 1000
+n_clusters = num_class
 cluster_result = KMeans(n_clusters=n_clusters, random_state=9).fit_predict(neural_code)
 clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_scalar)
 
 print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
 
-np.save('/public/data1/users/leishiye/neural_code/results/neural_code_resnet50/resnet50_results', np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))
+np.save('/public/data1/users/leishiye/neural_code/results/neural_code_resnet50/resnet50_results_num_class' + str(num_class), np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))

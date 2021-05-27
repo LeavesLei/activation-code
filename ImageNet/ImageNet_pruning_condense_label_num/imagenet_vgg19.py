@@ -32,6 +32,9 @@ for i in range(18):
     layer_code = np.load(neural_code_dir + str(i) + '.npy')
     # normalize
     layer_code = layer_code / (np.max(layer_code) - np.min(layer_code))
+    perm_index = np.random.permutation(layer_code.shape[1])
+    layer_code = layer_code[:, perm_index]
+    layer_code = layer_code[:, :layer_code.shape[1] // 4]
     if i == 0:
         neural_code = layer_code
     else:
@@ -84,4 +87,4 @@ clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_s
 print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
 
 
-np.save('/public/data1/users/leishiye/neural_code/results/neural_code_vgg19/vgg19_results_num_class_' + str(num_class), np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))
+np.save('/public/data1/users/leishiye/neural_code/results/neural_code_vgg19/vgg19_results_prune_num_class' + str(num_class), np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))
