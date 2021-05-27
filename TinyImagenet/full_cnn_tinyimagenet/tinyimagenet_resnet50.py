@@ -5,7 +5,13 @@ from sklearn.multiclass import OneVsOneClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics.cluster import contingency_matrix
 from scipy.optimize import linear_sum_assignment
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--num_class', type=int, default=200, help='number of classes')
+args = parser.parse_args()
+
+num_class = args.num_class
 # Load neural code
 
 def compute_clustering_accuracy(cluster_result, label, n_cluster=1000):
@@ -37,12 +43,19 @@ for i in range(17):
 test_label_scalar = np.load('/export/leishiye/neural_code_tinyimagenet/neural_code_resnet50/test_label.npy')
 train_label_scalar = np.load('/export/leishiye/neural_code_tinyimagenet/neural_code_resnet50/train_label.npy')
 
+ratio = 200 // num_class
+test_activation_codes = test_activation_codes[test_label_scalar % ratio == 0]
+test_label_scalar = test_label_scalar[test_label_scalar % ratio == 0]
+test_label_scalar = test_label_scalar // ratio
+
+train_activation_codes = train_activation_codes[train_label_scalar % ratio == 0]
+train_label_scalar = train_label_scalar[train_label_scalar % ratio == 0]
+train_label_scalar = train_label_scalar // ratio
+
 print(train_activation_codes.shape)
 print(train_label_scalar.shape)
 print(test_activation_codes.shape)
 print(test_label_scalar.shape)
-
-num_class = 200
 
 # compute multiclass logisticRegression
 logistic_classifier = OneVsOneClassifier(LogisticRegression(solver='liblinear', random_state=9)).fit(train_activation_codes,
