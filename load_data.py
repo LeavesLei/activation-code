@@ -20,7 +20,7 @@ def one_hot(x, n):
     return np.eye(n)[x]
 
 
-def load_mnist(path='/home1/leishiye/dataset/mnist.npz', flatten=False):
+def load_mnist(path='/public/data1/users/leishiye/datasets/mnist.npz', flatten=False):
     with np.load(path) as f:
         x_train, y_train = f['x_train'], f['y_train']
         x_test, y_test = f['x_test'], f['y_test']
@@ -59,7 +59,7 @@ def _load_batch(file):
     return data, labels  # 返回最原始的特征与标签
 
 
-def load_cifar10(path='datasets/cifar-10-batches-py'):
+def load_cifar10(path='/public/data1/users/leishiye/datasets/cifar-10-batches-py'):
     """Loads CIFAR10 dataset.
     # Returns
         Tuple of Numpy arrays: `(x_train, y_train), (x_test, y_test)`.
