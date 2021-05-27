@@ -82,4 +82,4 @@ clustering_accuracy_kmeans = compute_clustering_accuracy(cluster_result, label_s
 
 print("clustering_accuracy_kmeans: " + str(clustering_accuracy_kmeans))
 
-np.save('/public/data1/users/leishiye/neural_code/results/neural_code_resnxet50/resnext50_results_num_class' + str(num_class), np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))
+np.save('/export/leishiye/results/resnext50_results_num_class' + str(num_class), np.array([clustering_accuracy_kmeans, knn_accuracy, logistic_accuracy]))
