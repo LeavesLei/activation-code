@@ -83,7 +83,7 @@ load_path = '/public/data1/users/leishiye/neural_code/models/pretrained_model_ti
 class ResNet50(torch.nn.Module):
     def __init__(self):
         super(ResNet50, self).__init__()
-        model = torch.load(load_path+'resnext_tinyimagenet.pt')
+        model = torch.load(load_path+'wideresnet_tinyimagenet.pt')
         model.eval()
         self.model = model
         self.relu = model.pretrain.relu
@@ -147,13 +147,13 @@ class ResNet50(torch.nn.Module):
 resnet50 = ResNet50().to(device)
 
 conv_code_list, label_true = compute_conv_code_list(dataloaders['test'], resnet50)
-neural_code_dir = '/public/data1/users/leishiye/neural_code/results/neural_code_tinyimagenet/neural_code_resnext50/resnext50_test_code_layer_'
+neural_code_dir = '/public/data1/users/leishiye/neural_code/results/neural_code_tinyimagenet/neural_code_wideresnet50/wideresnet50_test_code_layer_'
 for i in range(17):
     layer_code = np.save(neural_code_dir + str(i), conv_code_list[i])
 np.save('/public/data1/users/leishiye/neural_code/results/neural_code_tinyimagenet/test_label', label_true)
 
 conv_code_list, label_true = compute_conv_code_list(dataloaders['train'], resnet50)
-neural_code_dir = '/public/data1/users/leishiye/neural_code/results/neural_code_tinyimagenet/neural_code_resnext50/resnext50_train_code_layer_'
+neural_code_dir = '/public/data1/users/leishiye/neural_code/results/neural_code_tinyimagenet/neural_code_wideresnet50/resnext50_train_code_layer_'
 for i in range(17):
     layer_code = np.save(neural_code_dir + str(i), conv_code_list[i])
 np.save('/public/data1/users/leishiye/neural_code/results/neural_code_tinyimagenet/train_label', label_true)
